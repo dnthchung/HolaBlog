@@ -2,7 +2,7 @@ import "dotenv/config";
 import cors from "cors";
 import express from "express";
 import { db } from "./db/index.js";
-import apiRouter from "./routers/index.js";
+import apiRouter from "./api/index.js";
 
 const app = express();
 
