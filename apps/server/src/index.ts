@@ -3,8 +3,17 @@ import cors from "cors";
 import express from "express";
 import { db } from "./db/index.js";
 import apiRouter from "./api/index.js";
+import logger from "./utils/logger.js";
+import { 
+  errorMiddleware, 
+  notFoundMiddleware, 
+  requestLoggerMiddleware 
+} from "./middlewares/error.middleware.js";
 
 const app = express();
+
+// Request logging middleware (should be first)
+app.use(requestLoggerMiddleware);
 
 // CORS configuration
 app.use(
@@ -32,19 +41,27 @@ app.get("/", (_req, res) => {
 // API routes
 app.use("/api", apiRouter);
 
+// 404 handler (should be after all routes)
+app.use(notFoundMiddleware);
+
+// Global error handler (should be last)
+app.use(errorMiddleware);
+
 const port = process.env.PORT || 3000;
 app.listen(port, async () => {
-  console.log(`Server is running on port ${port}`);
+  logger.info(`🚀 Server is running on port ${port}`);
+  
   // Kiểm tra kết nối DB khi khởi động
   try {
     await db.execute('SELECT 1');
-    console.log('✅ Connected to MySQL database (via Docker)');
+    logger.info('✅ Connected to MySQL database (via Docker)');
   } catch (error) {
-    console.error('❌ Failed to connect to MySQL database:', error instanceof Error ? error.message : error);
+    logger.error('❌ Failed to connect to MySQL database:', error instanceof Error ? error.message : error);
   }
+  
   if (process.env.DATABASE_URL) {
-    console.log(`Database URL: ${process.env.DATABASE_URL}`);
+    logger.info(`Database URL: ${process.env.DATABASE_URL}`);
   } else {
-    console.warn('⚠️ DATABASE_URL is not set in environment variables');
+    logger.warn('⚠️ DATABASE_URL is not set in environment variables');
   }
 });

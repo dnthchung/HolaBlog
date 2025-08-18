@@ -1,9 +1,12 @@
 import { z } from "zod";
+import { createInsertSchema, createSelectSchema } from "drizzle-zod";
+import { blogs } from "../../db/tables.js";
 
-// Import existing schemas from db/schema.ts for consistency
-export { insertBlogSchema, selectBlogSchema } from "../../db/schema.js";
+// Drizzle-generated schemas
+export const insertBlogSchema = createInsertSchema(blogs);
+export const selectBlogSchema = createSelectSchema(blogs);
 
-// Additional DTOs and validation schemas can be added here
+// DTOs and validation schemas
 export const createBlogDto = z.object({
   title: z.string().min(1).max(255),
   slug: z.string().optional(),
@@ -34,3 +37,7 @@ export const getBlogsQueryDto = z.object({
   limit: z.string().default("10"),
   page: z.string().default("1"),
 });
+
+// Type exports  
+export type Blog = typeof blogs.$inferSelect;
+export type NewBlog = typeof blogs.$inferInsert;

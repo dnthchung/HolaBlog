@@ -1,5 +1,4 @@
 import { mysqlTable, serial, varchar, text, timestamp, int, datetime } from "drizzle-orm/mysql-core";
-import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 
 // Users table
 export const users = mysqlTable("users", {
@@ -28,13 +27,6 @@ export const blogs = mysqlTable("blogs", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().onUpdateNow().notNull(),
 });
-
-// Schema validation using Zod
-export const insertUserSchema = createInsertSchema(users);
-export const selectUserSchema = createSelectSchema(users);
-
-export const insertBlogSchema = createInsertSchema(blogs);
-export const selectBlogSchema = createSelectSchema(blogs);
 
 // Type exports
 export type User = typeof users.$inferSelect;

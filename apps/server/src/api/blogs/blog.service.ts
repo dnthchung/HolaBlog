@@ -1,7 +1,7 @@
 import { db } from "../../db/index.js";
-import { blogs, users } from "../../db/schema.js";
+import { blogs, users } from "../../db/tables.js";
 import { eq, desc, like, and } from "drizzle-orm";
-import type { insertBlogSchema } from "../../db/schema.js";
+import type { insertBlogSchema } from "./blog.schema.js";
 import type { z } from "zod";
 
 export class BlogService {

@@ -1,6 +1,6 @@
 import "dotenv/config";
 import { db } from "./index.js";
-import { users, blogs } from "./schema.js";
+import { users, blogs } from "./tables.js";
 
 async function seed() {
   console.log("🌱 Starting database seeding...");

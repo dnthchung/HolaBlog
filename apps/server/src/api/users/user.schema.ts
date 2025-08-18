@@ -1,9 +1,12 @@
 import { z } from "zod";
+import { createInsertSchema, createSelectSchema } from "drizzle-zod";
+import { users } from "../../db/tables.js";
 
-// Import existing schemas from db/schema.ts for consistency
-export { insertUserSchema, selectUserSchema } from "../../db/schema.js";
+// Drizzle-generated schemas
+export const insertUserSchema = createInsertSchema(users);
+export const selectUserSchema = createSelectSchema(users);
 
-// Additional DTOs and validation schemas can be added here
+// DTOs and validation schemas
 export const createUserDto = z.object({
   username: z.string().min(3).max(50),
   email: z.string().email(),
@@ -19,3 +22,7 @@ export const getUserParamsDto = z.object({
     message: "Invalid user ID"
   }),
 });
+
+// Type exports
+export type User = typeof users.$inferSelect;
+export type NewUser = typeof users.$inferInsert;

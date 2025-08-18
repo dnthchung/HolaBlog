@@ -1,7 +1,7 @@
 import { db } from "../../db/index.js";
-import { users } from "../../db/schema.js";
+import { users } from "../../db/tables.js";
 import { eq } from "drizzle-orm";
-import type { insertUserSchema } from "../../db/schema.js";
+import type { insertUserSchema } from "./user.schema.js";
 import type { z } from "zod";
 
 export class UserService {
