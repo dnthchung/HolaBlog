@@ -1,11 +1,11 @@
 # HolaBlog Server
 
-Backend API server for HolaBlog - a modern blogging platform built with Node.js, Express, Drizzle ORM, and MySQL.
+Backend API server for HolaBlog - a modern blogging platform built with Node.js, Express, Prisma ORM, and PostgreSQL.
 
 ## Features
 
 - ✅ RESTful API for blogs and users
-- ✅ MySQL database with Drizzle ORM
+- ✅ PostgreSQL database with Prisma ORM
 - ✅ Docker containerization
 - ✅ TypeScript support
 - ✅ Input validation with Zod
@@ -17,8 +17,8 @@ Backend API server for HolaBlog - a modern blogging platform built with Node.js,
 
 - **Runtime**: Bun
 - **Framework**: Express.js
-- **Database**: MySQL 8.0
-- **ORM**: Drizzle ORM
+- **Database**: PostgreSQL 16
+- **ORM**: Prisma ORM
 - **Validation**: Zod
 - **Language**: TypeScript
 - **Container**: Docker
@@ -28,17 +28,18 @@ Backend API server for HolaBlog - a modern blogging platform built with Node.js,
 ```
 src/
 ├── db/
-│   ├── index.ts       # Database connection
-│   ├── schema.ts      # Database schema definitions
+│   ├── index.ts       # Database connection (Prisma)
 │   ├── seed.ts        # Sample data seeding
 │   └── setup.ts       # Initial setup script
-├── routers/
+├── api/
 │   ├── index.ts       # Main API router
-│   ├── users.ts       # User routes
-│   └── blogs.ts       # Blog routes
+│   ├── users/         # User routes and controllers
+│   └── blogs/         # Blog routes and controllers
 ├── middlewares/       # Express middlewares
 ├── utils/            # Utility functions
 └── index.ts          # Main server file
+prisma/
+└── schema.prisma     # Prisma database schema
 ```
 
 ## Quick Start
@@ -111,7 +112,7 @@ Copy `.env.example` to `env` and configure:
 
 ```env
 # Database Configuration
-DATABASE_URL=mysql://user:password@localhost:3307/holablog
+DATABASE_URL=postgresql://user:password@localhost:5432/holablog
 
 # Server Configuration
 PORT=3000
@@ -143,8 +144,10 @@ APP_URL=http://localhost:3000
 - `bun run db:down` - Remove Docker containers
 - `bun run db:watch` - Start containers with logs
 - `bun run db:push` - Push schema to database
-- `bun run db:studio` - Open Drizzle Studio
+- `bun run db:studio` - Open Prisma Studio
 - `bun run db:seed` - Seed database with sample data
+- `bun run db:generate` - Generate Prisma client
+- `bun run db:migrate:dev` - Create and apply migration
 - `bun run db:reset` - Reset database (down + start + push + seed)
 
 ### Other
@@ -230,12 +233,12 @@ The seeding script creates:
 
 ## Development Tools
 
-### Drizzle Studio
+### Prisma Studio
 Access the database GUI:
 ```bash
 bun run db:studio
 ```
-Opens at: http://localhost:4983
+Opens at: http://localhost:5555
 
 ### Database Management
 ```bash

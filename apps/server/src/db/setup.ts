@@ -25,7 +25,7 @@ async function setup() {
     console.log("\n📌 Next steps:");
     console.log("1. Run 'bun run dev' to start the development server");
     console.log("2. Visit http://localhost:3000 to see your API");
-    console.log("3. Run 'bun run db:studio' to open Drizzle Studio");
+    console.log("3. Run 'bun run db:studio' to open Prisma Studio");
 
   } catch (error) {
     console.error("❌ Setup failed:", error);

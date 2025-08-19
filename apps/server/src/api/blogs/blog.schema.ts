@@ -1,10 +1,32 @@
 import { z } from "zod";
-import { createInsertSchema, createSelectSchema } from "drizzle-zod";
-import { blogs } from "../../db/tables.js";
 
-// Drizzle-generated schemas
-export const insertBlogSchema = createInsertSchema(blogs);
-export const selectBlogSchema = createSelectSchema(blogs);
+// Base schemas
+export const insertBlogSchema = z.object({
+  title: z.string().max(255),
+  slug: z.string().max(255),
+  content: z.string(),
+  excerpt: z.string().optional(),
+  featuredImage: z.string().max(255).optional(),
+  status: z.string().max(20).default("draft"),
+  viewCount: z.number().default(0).optional(),
+  authorId: z.number(),
+  publishedAt: z.date().optional(),
+});
+
+export const selectBlogSchema = z.object({
+  id: z.number(),
+  title: z.string(),
+  slug: z.string(),
+  content: z.string(),
+  excerpt: z.string().nullable(),
+  featuredImage: z.string().nullable(),
+  status: z.string(),
+  viewCount: z.number(),
+  authorId: z.number(),
+  publishedAt: z.date().nullable(),
+  createdAt: z.date(),
+  updatedAt: z.date(),
+});
 
 // DTOs and validation schemas
 export const createBlogDto = z.object({
@@ -39,5 +61,5 @@ export const getBlogsQueryDto = z.object({
 });
 
 // Type exports  
-export type Blog = typeof blogs.$inferSelect;
-export type NewBlog = typeof blogs.$inferInsert;
+export type Blog = z.infer<typeof selectBlogSchema>;
+export type NewBlog = z.infer<typeof insertBlogSchema>;

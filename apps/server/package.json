@@ -8,10 +8,11 @@
     "compile": "bun build --compile --minify --sourcemap --bytecode ./src/index.ts --outfile server",
     "dev": "bun run --hot src/index.ts",
     "start": "bun run dist/index.js",
-    "db:push": "drizzle-kit push",
-    "db:studio": "drizzle-kit studio",
-    "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push",
+    "db:studio": "prisma studio",
+    "db:migrate": "prisma migrate deploy",
+    "db:migrate:dev": "prisma migrate dev",
     "db:seed": "bun run src/db/seed.ts",
     "db:setup": "bun run src/db/setup.ts",
     "db:reset": "bun run db:down && bun run db:start && sleep 10 && bun run db:push && bun run db:seed",
@@ -21,12 +22,11 @@
     "db:down": "docker-compose down"
   },
   "dependencies": {
+    "@prisma/client": "^5.20.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.1",
-    "drizzle-orm": "^0.44.2",
-    "drizzle-zod": "^0.5.1",
     "express": "^5.1.0",
-    "mysql2": "^3.14.0",
+    "pg": "^8.13.0",
     "winston": "^3.17.0",
     "zod": "^4.0.2"
   },
@@ -34,8 +34,9 @@
     "@types/bun": "^1.2.6",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.1",
+    "@types/pg": "^8.11.10",
     "@types/winston": "^2.4.4",
-    "drizzle-kit": "^0.31.2",
+    "prisma": "^5.20.0",
     "tsdown": "^0.12.9",
     "typescript": "^5.8.2"
   }

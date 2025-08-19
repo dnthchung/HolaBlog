@@ -1,6 +1,5 @@
 import "dotenv/config";
 import { db } from "./index.js";
-import { users, blogs } from "./tables.js";
 
 async function seed() {
   console.log("🌱 Starting database seeding...");
@@ -8,12 +7,13 @@ async function seed() {
   try {
     // Clear existing data
     console.log("🧹 Clearing existing data...");
-    await db.delete(blogs);
-    await db.delete(users);
+    await db.blog.deleteMany();
+    await db.user.deleteMany();
 
     // Insert sample users
     console.log("👥 Creating sample users...");
-    const sampleUsers = await db.insert(users).values([
+    const sampleUsers = await db.user.createMany({
+      data: [
       {
         username: "admin",
         email: "admin@holablog.com",
@@ -42,13 +42,18 @@ async function seed() {
         bio: "DevOps engineer with a passion for automation and cloud technologies. Docker and Kubernetes enthusiast.",
         avatar: "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=100&h=100&fit=crop&crop=face",
       },
-    ]);
+      ],
+    });
 
-    console.log(`✅ Created ${sampleUsers.length} users`);
+    console.log(`✅ Created ${sampleUsers.count} users`);
+
+    // Get user IDs for blog associations
+    const users = await db.user.findMany();
 
     // Insert sample blogs
     console.log("📝 Creating sample blog posts...");
-    const sampleBlogs = await db.insert(blogs).values([
+    const sampleBlogs = await db.blog.createMany({
+      data: [
       {
         title: "Getting Started with Modern Web Development",
         slug: "getting-started-modern-web-development",
@@ -85,7 +90,7 @@ Web development is an exciting field with endless opportunities to learn and gro
         excerpt: "A comprehensive guide to modern web development, covering essential frontend and backend technologies, tools, and best practices for beginners.",
         featuredImage: "https://images.unsplash.com/photo-1627398242454-45a1465c2479?w=800&h=400&fit=crop",
         status: "published",
-        authorId: 1,
+        authorId: users[0].id,
         viewCount: 150,
         publishedAt: new Date("2024-01-15"),
       },
@@ -155,7 +160,7 @@ Building scalable APIs requires careful planning and following best practices. S
         excerpt: "Learn how to build robust and scalable APIs using Node.js and Express.js, covering best practices, security, and performance optimization.",
         featuredImage: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&h=400&fit=crop",
         status: "published",
-        authorId: 2,
+        authorId: users[1].id,
         viewCount: 89,
         publishedAt: new Date("2024-01-20"),
       },
@@ -220,7 +225,7 @@ Database design is both an art and a science. Start with a solid foundation, mon
         excerpt: "Essential database design principles for modern applications, covering SQL vs NoSQL, normalization, indexing, and performance optimization strategies.",
         featuredImage: "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=800&h=400&fit=crop",
         status: "published",
-        authorId: 3,
+        authorId: users[2].id,
         viewCount: 234,
         publishedAt: new Date("2024-01-25"),
       },
@@ -331,7 +336,7 @@ Docker and containerization are essential skills for modern developers. Start wi
         excerpt: "Comprehensive guide to Docker and containerization best practices, covering Dockerfile optimization, security, deployment strategies, and monitoring.",
         featuredImage: "https://images.unsplash.com/photo-1605745341112-85968b19335b?w=800&h=400&fit=crop",
         status: "published",
-        authorId: 4,
+        authorId: users[3].id,
         viewCount: 312,
         publishedAt: new Date("2024-02-01"),
       },
@@ -463,12 +468,13 @@ TypeScript is a powerful tool that can significantly improve your JavaScript dev
         excerpt: "Complete beginner's guide to TypeScript, covering basic and advanced types, setup, best practices, and common pitfalls to avoid.",
         featuredImage: "https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=800&h=400&fit=crop",
         status: "draft",
-        authorId: 2,
+        authorId: users[1].id,
         viewCount: 45,
       },
-    ]);
+      ],
+    });
 
-    console.log(`✅ Created ${sampleBlogs.length} blog posts`);
+    console.log(`✅ Created ${sampleBlogs.count} blog posts`);
     console.log("🎉 Database seeding completed successfully!");
 
   } catch (error) {

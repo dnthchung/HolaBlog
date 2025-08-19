@@ -1,6 +1,4 @@
 import { db } from "../../db/index.js";
-import { blogs, users } from "../../db/tables.js";
-import { eq, desc, like, and } from "drizzle-orm";
 import type { insertBlogSchema } from "./blog.schema.js";
 import type { z } from "zod";
 
@@ -12,116 +10,127 @@ export class BlogService {
     limit: number;
     page: number;
   }) {
-    // TODO: Implement get all blogs with filters logic
-    const conditions = [];
+    const where: any = {};
     
     if (filters.status) {
-      conditions.push(eq(blogs.status, filters.status));
+      where.status = filters.status;
     }
     
     if (filters.search) {
-      conditions.push(like(blogs.title, `%${filters.search}%`));
+      where.title = {
+        contains: filters.search,
+        mode: 'insensitive',
+      };
     }
     
     if (filters.author) {
       const authorId = Number(filters.author);
       if (!Number.isNaN(authorId)) {
-        conditions.push(eq(blogs.authorId, authorId));
+        where.authorId = authorId;
       }
     }
 
     const offset = (filters.page - 1) * filters.limit;
 
-    const base = db
-      .select({
-        id: blogs.id,
-        title: blogs.title,
-        slug: blogs.slug,
-        excerpt: blogs.excerpt,
-        featuredImage: blogs.featuredImage,
-        status: blogs.status,
-        viewCount: blogs.viewCount,
-        publishedAt: blogs.publishedAt,
-        createdAt: blogs.createdAt,
-        updatedAt: blogs.updatedAt,
+    const allBlogs = await db.blog.findMany({
+      where,
+      select: {
+        id: true,
+        title: true,
+        slug: true,
+        excerpt: true,
+        featuredImage: true,
+        status: true,
+        viewCount: true,
+        publishedAt: true,
+        createdAt: true,
+        updatedAt: true,
         author: {
-          id: users.id,
-          username: users.username,
-          fullName: users.fullName,
-          avatar: users.avatar,
+          select: {
+            id: true,
+            username: true,
+            fullName: true,
+            avatar: true,
+          },
         },
-      })
-      .from(blogs)
-      .leftJoin(users, eq(blogs.authorId, users.id));
-
-    const filtered = conditions.length > 0
-      ? base.where(and(...conditions))
-      : base;
-
-    const allBlogs = await filtered
-      .orderBy(desc(blogs.createdAt))
-      .limit(filters.limit)
-      .offset(offset);
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+      skip: offset,
+      take: filters.limit,
+    });
 
     return allBlogs;
   }
 
   async getBlogBySlug(slug: string) {
-    // TODO: Implement get blog by slug logic
-    const blog = await db
-      .select({
-        id: blogs.id,
-        title: blogs.title,
-        slug: blogs.slug,
-        content: blogs.content,
-        excerpt: blogs.excerpt,
-        featuredImage: blogs.featuredImage,
-        status: blogs.status,
-        viewCount: blogs.viewCount,
-        publishedAt: blogs.publishedAt,
-        createdAt: blogs.createdAt,
-        updatedAt: blogs.updatedAt,
+    const blog = await db.blog.findUnique({
+      where: { slug },
+      select: {
+        id: true,
+        title: true,
+        slug: true,
+        content: true,
+        excerpt: true,
+        featuredImage: true,
+        status: true,
+        viewCount: true,
+        publishedAt: true,
+        createdAt: true,
+        updatedAt: true,
         author: {
-          id: users.id,
-          username: users.username,
-          fullName: users.fullName,
-          bio: users.bio,
-          avatar: users.avatar,
+          select: {
+            id: true,
+            username: true,
+            fullName: true,
+            bio: true,
+            avatar: true,
+          },
         },
-      })
-      .from(blogs)
-      .leftJoin(users, eq(blogs.authorId, users.id))
-      .where(eq(blogs.slug, slug));
+      },
+    });
 
-    return blog.length > 0 ? blog[0] : null;
+    return blog;
   }
 
   async incrementViewCount(blogId: number, currentViews: number) {
-    // TODO: Implement increment view count logic
-    await db
-      .update(blogs)
-      .set({ viewCount: currentViews + 1 })
-      .where(eq(blogs.id, blogId));
+    await db.blog.update({
+      where: { id: blogId },
+      data: { viewCount: currentViews + 1 },
+    });
   }
 
   async createBlog(blogData: z.infer<typeof insertBlogSchema>) {
-    // TODO: Implement create blog logic
-    const result = await db.insert(blogs).values(blogData);
-    const insertedId = Array.isArray(result) ? (result[0] as any).insertId : undefined;
-    return { id: insertedId };
+    const blog = await db.blog.create({
+      data: blogData,
+      select: {
+        id: true,
+      },
+    });
+    return blog;
   }
 
   async updateBlog(id: number, blogData: Partial<z.infer<typeof insertBlogSchema>>) {
-    // TODO: Implement update blog logic
-    const upd = await db.update(blogs).set(blogData).where(eq(blogs.id, id));
-    const affected = Array.isArray(upd) ? (upd[0] as any).affectedRows : 0;
-    return affected > 0;
+    try {
+      await db.blog.update({
+        where: { id },
+        data: blogData,
+      });
+      return true;
+    } catch (error) {
+      return false;
+    }
   }
 
   async deleteBlog(id: number) {
-    // TODO: Implement delete blog logic
-    const del = await db.delete(blogs).where(eq(blogs.id, id));
-    const deleted = Array.isArray(del) ? (del[0] as any).affectedRows : 0;
-    return deleted > 0;
+    try {
+      await db.blog.delete({
+        where: { id },
+      });
+      return true;
+    } catch (error) {
+      return false;
+    }
   }
 }

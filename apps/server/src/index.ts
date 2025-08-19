@@ -51,12 +51,13 @@ const port = process.env.PORT || 3000;
 app.listen(port, async () => {
   logger.info(`🚀 Server is running on port ${port}`);
   
-  // Kiểm tra kết nối DB khi khởi động
+  // Check database connection on startup
   try {
-    await db.execute('SELECT 1');
-    logger.info('✅ Connected to MySQL database (via Docker)');
+    await db.$connect();
+    logger.info('✅ Connected to PostgreSQL database (via Docker)');
   } catch (error) {
-    logger.error('❌ Failed to connect to MySQL database:', error instanceof Error ? error.message : error);
+    logger.error('❌ Failed to connect to PostgreSQL database:', error instanceof Error ? error.message : error);
+    logger.info(`Database URL: ${process.env.DATABASE_URL}`);
   }
   
   if (process.env.DATABASE_URL) {
