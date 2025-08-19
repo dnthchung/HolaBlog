@@ -4,27 +4,17 @@ import blogRouter from "./blogs/blog.router.js";
 
 const router: Router = Router();
 
-// Health check endpoint
+// API Info endpoint
 router.get("/", (req: Request, res: Response) => {
+  const apiVersion = process.env.API_VERSION || "v1";
   res.json({
     success: true,
     message: "HolaBlog API is running",
     version: "1.0.0",
     endpoints: {
-      users: "/api/users",
-      blogs: "/api/blogs",
-      health: "/api/health",
+      users: `/api/${apiVersion}/users`,
+      blogs: `/api/${apiVersion}/blogs`,
     },
-  });
-});
-
-// Health check endpoint
-router.get("/health", (req: Request, res: Response) => {
-  res.json({
-    success: true,
-    status: "healthy",
-    timestamp: new Date().toISOString(),
-    uptime: process.uptime(),
   });
 });
 

@@ -19,8 +19,8 @@ app.use(requestLoggerMiddleware);
 app.use(
   cors({
     origin: process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(",") : ["http://localhost:3000"],
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    credentials: true,
+    methods: process.env.CORS_METHODS ? process.env.CORS_METHODS.split(",") : ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    credentials: process.env.CORS_CREDENTIALS === "true",
   })
 );
 
@@ -30,16 +30,18 @@ app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
 // Root endpoint
 app.get("/", (_req, res) => {
+  const apiVersion = process.env.API_VERSION || "v1";
   res.json({
     success: true,
     message: "Welcome to HolaBlog API",
     version: "1.0.0",
-    documentation: "/api",
+    documentation: `/api/${apiVersion}`,
   });
 });
 
-// API routes
-app.use("/api", apiRouter);
+// API routes with versioning
+const apiVersion = process.env.API_VERSION || "v1";
+app.use(`/api/${apiVersion}`, apiRouter);
 
 // 404 handler (should be after all routes)
 app.use(notFoundMiddleware);
