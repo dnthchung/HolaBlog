@@ -1,0 +1,65 @@
+---
+title: HTTP Status Code cho Developer
+date: '2025-12-03'
+tags: ['vi', 'code']
+draft: false
+summary: HTTP Status Code cho Developer
+---
+
+# Mở đầu
+
+- Khi làm việc nhiều khi ae vẫn chưa rõ về các http status code nên viết blog này vừa để note, vừa để chia sẻ cho ae.
+
+- HTTP Response cho biết liệu một response HTTP cụ thể đã được hoàn thành thành công hay chưa.
+
+- HTTP Status Code được chia thành 5 nhóm:
+  - 1xx: Infomational Responses
+  - 2xx: Successful Responses
+  - 3xx: Redirection
+  - 4xx: Client Error
+  - 5xx: Server Error
+
+- Các Status Code dưới đây được xác định bởi section 10 of RFC 2616. Ae có thể tìm thấy một đặc điểm kỹ thuật được cập nhật trong đây RFC 7231.
+- Nếu ae nhận được response không có trong danh sách này, thì đó là response không chuẩn, có thể là tùy chỉnh cho phần mềm của máy chủ nhé!
+
+[Http Decision Diagram](https://github.com/for-GET/http-decision-diagram)
+
+# HTTP Status Code
+
+## 1xx: Informational responses
+
+-**100 - Continue :** Response tạm thời này cho thấy mọi thứ cho đến nay đều ổn và khách hàng nên tiếp tục yêu cầu hoặc bỏ qua phản hồi nếu yêu cầu đã kết thúc.
+
+-**101 - Switching Protocol:** Code này được gửi để đáp lại tiêu đề yêu cầu nâng cấp từ máy khách và cho biết giao thức mà máy chủ đang chuyển sang.
+
+-**102 - Processing:** (WebDAV) Cho biết rằng máy chủ đã nhận được và đang xử lý yêu cầu, nhưng chưa có phản hồi nào
+
+-**103 - Early Hints:** Trạng thái này chủ yếu được sử dụng với tiêu đề Liên kết, cho phép tác nhân người dùng bắt đầu tải trước tài nguyên trong khi máy chủ chuẩn bị phản hồi.
+
+## 2xx: Successful responses
+
+-**200 OK:** Yêu cầu đã thành công. Ý nghĩa của thành công phụ thuộc vào phương thức HTTP sau đây: -**GET:** dữ liệu đã được get về thành công. -**HEAD:** các tiêu đề, thực thể đều nằm trong response trả về. -**PUT or POST:** kết quả của hành động được trả về. -**TRACE:** Phần thân thông báo chứa thông báo yêu cầu mà máy che nhận được
+
+-**201 Created:** Yêu cầu đã thành công và kết quả mới đã được tạo. Đây thường là phản hồi được gửi sau khi POST yêu cầu.
+
+-**202 Accepted:** Yêu cầu đã được nhận nhưng chưa được thực hiện. Vì HTTP không có cách nào để gửi phản hồi không đồng bộ cho biết kết quả của yêu cầu. Nó được dành cho các trường hợp trong đó một quy trình hoặc máy chủ khác xử lý yêu cầu hoặc xử lý hàng loạt.
+
+-**203 Non-Authoritative Information:** Phản hồi này có nghĩa là thông tin meta được trả về không hoàn toàn giống với thông tin có sẵn từ máy chủ.
+
+-**204 No Content Response:** không có nội dung trả về.
+
+-**205 Reset Content:** Yêu cầu người dùng thiết lập lại dữ liệu đã gửi yêu cầu đến máy chủ.
+
+-**206 Partial Content:** Phản hồi này được sử dụng khi Range tiêu đề được gửi từ client để chỉ yêu cầu một phần của tài nguyên.
+
+-**207 Multi-Status (WebDAV):** Truyền tải thông tin về nhiều tài nguyên, trong các tình huống có thể có nhiều trạng thái phù hợp.
+
+-**208 Already Reported (WebDAV):** Được sử dụng bên trong một dav:propstat Phần tử phản hồi để tránh liên tục liệt kê nhiều ràng buộc.
+
+-**226 IM Used:** (Mã hóa HTTP Delta) Máy chủ đã thực hiện một GET yêu cầu và phản hồi là một đại diện cho kết quả của một hoặc nhiều thao tác thể hiện được áp dụng cho thể hiện hiện tại.
+
+## 3xx: Redirection.
+
+## 4xx: Client error
+
+## 5xx: Server error
