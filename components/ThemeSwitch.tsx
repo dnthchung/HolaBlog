@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { Fragment, useEffect, useState } from "react";
-import { useTheme } from "next-themes";
+import { Fragment, useEffect, useState } from 'react';
+import { useTheme } from 'next-themes';
 import {
   Menu,
   MenuButton,
@@ -10,7 +10,7 @@ import {
   Radio,
   RadioGroup,
   Transition,
-} from "@headlessui/react";
+} from '@headlessui/react';
 
 const Sun = () => (
   <svg
@@ -67,7 +67,7 @@ const ThemeSwitch = () => {
         <div className="hover:text-primary-500 dark:hover:text-primary-400 flex items-center justify-center">
           <MenuButton aria-label="Theme switcher">
             {mounted ? (
-              resolvedTheme === "dark" ? (
+              resolvedTheme === 'dark' ? (
                 <Moon />
               ) : (
                 <Sun />
@@ -93,7 +93,7 @@ const ThemeSwitch = () => {
                   <MenuItem>
                     {({ focus }) => (
                       <button
-                        className={`${focus ? "bg-primary-600 text-white" : ""} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                        className={`${focus ? 'bg-primary-600 text-white' : ''} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                       >
                         <div className="mr-2">
                           <Sun />
@@ -108,7 +108,7 @@ const ThemeSwitch = () => {
                     {({ focus }) => (
                       <button
                         className={`${
-                          focus ? "bg-primary-600 text-white" : ""
+                          focus ? 'bg-primary-600 text-white' : ''
                         } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                       >
                         <div className="mr-2">
@@ -124,7 +124,7 @@ const ThemeSwitch = () => {
                     {({ focus }) => (
                       <button
                         className={`${
-                          focus ? "bg-primary-600 text-white" : ""
+                          focus ? 'bg-primary-600 text-white' : ''
                         } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                       >
                         <div className="mr-2">
