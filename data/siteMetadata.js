@@ -6,8 +6,8 @@ const siteMetadata = {
   description: 'My life with coding, language and photography',
   language: ['en-us', 'vi-vn'],
   theme: 'system', // system, dark or light
-  siteUrl: 'https://hola-blog.vercel.app',
-  siteRepo: 'https://github.com/dnthchung/hola-blog',
+  siteUrl: 'https://dnthchung.github.io/HolaBlog',
+  siteRepo: 'https://github.com/dnthchung/HolaBlog',
   siteLogo: `${process.env.BASE_PATH || ''}/static/images/logo.png`,
   socialBanner: `${process.env.BASE_PATH || ''}/static/images/twitter-card.png`,
   email: 'chungdt03.work@gmail.com',

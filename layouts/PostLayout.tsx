@@ -1,17 +1,19 @@
-import { ReactNode } from 'react';
-import { CoreContent } from 'pliny/utils/contentlayer';
-import type { Blog, Authors } from 'contentlayer/generated';
 import Comments from '@/components/Comments';
+import Image from '@/components/Image';
 import Link from '@/components/Link';
 import PageTitle from '@/components/PageTitle';
+import ScrollTopAndComment from '@/components/ScrollTopAndComment';
 import SectionContainer from '@/components/SectionContainer';
-import Image from '@/components/Image';
+import SidebarTOC from '@/components/SidebarTOC';
 import Tag from '@/components/Tag';
 import siteMetadata from '@/data/siteMetadata';
-import ScrollTopAndComment from '@/components/ScrollTopAndComment';
+import type { Authors, Blog } from 'contentlayer/generated';
+import { CoreContent } from 'pliny/utils/contentlayer';
+import { ReactNode } from 'react';
 
-const editUrl = (path) => `${siteMetadata.siteRepo}/blob/main/data/${path}`;
-const discussUrl = (path) =>
+const editUrl = (path: string) =>
+  `${siteMetadata.siteRepo}/blob/main/data/${path}`;
+const discussUrl = (path: string) =>
   `https://mobile.twitter.com/search?q=${encodeURIComponent(`${siteMetadata.siteUrl}/${path}`)}`;
 
 const postDateTemplate: Intl.DateTimeFormatOptions = {
@@ -42,141 +44,227 @@ export default function PostLayout({
   return (
     <SectionContainer>
       <ScrollTopAndComment />
-      <article>
-        <div className="xl:divide-y xl:divide-gray-200 xl:dark:divide-gray-700">
-          <header className="pt-6 xl:pb-6">
-            <div className="space-y-1 text-center">
-              <dl className="space-y-10">
-                <div>
-                  <dt className="sr-only">Published on</dt>
-                  <dd className="text-base leading-6 font-medium text-gray-500 dark:text-gray-400">
-                    <time dateTime={date}>
-                      {new Date(date).toLocaleDateString(
-                        siteMetadata.locale,
-                        postDateTemplate,
-                      )}
-                    </time>
-                  </dd>
+      <article className="mx-auto w-full max-w-6xl px-4 sm:px-6">
+        {/* Top header (GitHub-ish) */}
+        <header className="mt-6">
+          <div className="rounded-lg border border-gray-200 bg-white px-4 py-4 sm:px-6 dark:border-gray-800 dark:bg-gray-950">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+              <div className="min-w-0">
+                <PageTitle>
+                  <span className="block">{title}</span>
+                </PageTitle>
+                <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-gray-600 dark:text-gray-300">
+                  <time
+                    dateTime={date}
+                    className="text-gray-500 dark:text-gray-400"
+                  >
+                    {new Date(date).toLocaleDateString(
+                      siteMetadata.locale,
+                      postDateTemplate,
+                    )}
+                  </time>
+                  <span className="text-gray-300 dark:text-gray-700">•</span>
+                  <div className="flex flex-wrap gap-2">
+                    {authorDetails.map((author) => (
+                      <div
+                        key={author.name}
+                        className="inline-flex items-center gap-2"
+                      >
+                        {author.avatar ? (
+                          <Image
+                            src={author.avatar}
+                            width={24}
+                            height={24}
+                            alt="avatar"
+                            className="h-6 w-6 rounded-full"
+                          />
+                        ) : null}
+                        <span className="font-medium text-gray-700 dark:text-gray-200">
+                          {author.name}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </dl>
-              <div>
-                <PageTitle>{title}</PageTitle>
+              </div>
+              {/* Header actions */}
+              <div className="flex shrink-0 flex-wrap items-center gap-2">
+                <Link
+                  href={editUrl(filePath)}
+                  className="inline-flex items-center rounded-md border border-gray-200 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-200 dark:hover:bg-gray-900"
+                >
+                  View on GitHub
+                </Link>
+                <Link
+                  href={discussUrl(path)}
+                  rel="nofollow"
+                  className="inline-flex items-center rounded-md border border-gray-200 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-200 dark:hover:bg-gray-900"
+                >
+                  Discuss
+                </Link>
               </div>
             </div>
-          </header>
-          <div className="grid-rows-[auto_1fr] divide-y divide-gray-200 pb-8 xl:grid xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0 dark:divide-gray-700">
-            <dl className="pt-6 pb-10 xl:border-b xl:border-gray-200 xl:pt-11 xl:dark:border-gray-700">
-              <dt className="sr-only">Authors</dt>
-              <dd>
-                <ul className="flex flex-wrap justify-center gap-4 sm:space-x-12 xl:block xl:space-y-8 xl:space-x-0">
-                  {authorDetails.map((author) => (
-                    <li
-                      className="flex items-center space-x-2"
-                      key={author.name}
-                    >
-                      {author.avatar && (
-                        <Image
-                          src={author.avatar}
-                          width={38}
-                          height={38}
-                          alt="avatar"
-                          className="h-10 w-10 rounded-full"
-                        />
-                      )}
-                      <dl className="text-sm leading-5 font-medium whitespace-nowrap">
-                        <dt className="sr-only">Name</dt>
-                        <dd className="text-gray-900 dark:text-gray-100">
-                          {author.name}
-                        </dd>
-                        <dt className="sr-only">Twitter</dt>
-                        <dd>
-                          {author.twitter && (
-                            <Link
-                              href={author.twitter}
-                              className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-                            >
-                              {author.twitter
-                                .replace('https://twitter.com/', '@')
-                                .replace('https://x.com/', '@')}
-                            </Link>
-                          )}
-                        </dd>
-                      </dl>
-                    </li>
-                  ))}
-                </ul>
-              </dd>
-            </dl>
-            <div className="divide-y divide-gray-200 xl:col-span-3 xl:row-span-2 xl:pb-0 dark:divide-gray-700">
-              <div className="prose dark:prose-invert max-w-none pt-10 pb-8">
+          </div>
+        </header>
+
+        {/* Main grid: content + sidebar */}
+        <div className="mt-6 grid grid-cols-1 gap-6 overflow-visible lg:grid-cols-[1fr_320px]">
+          {/* Main content card */}
+          <main className="min-w-0">
+            <div className="overflow-hidden rounded-lg border border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-950">
+              {/* Bài viết chính */}
+              <div className="prose dark:prose-invert max-w-none px-4 py-6 sm:px-6">
                 {children}
               </div>
-              <div className="pt-6 pb-6 text-sm text-gray-700 dark:text-gray-300">
-                <Link href={discussUrl(path)} rel="nofollow">
-                  Discuss on Twitter
-                </Link>
-                {` • `}
-                <Link href={editUrl(filePath)}>View on GitHub</Link>
-              </div>
-              {siteMetadata.comments && (
-                <div
-                  className="pt-6 pb-6 text-center text-gray-700 dark:text-gray-300"
-                  id="comment"
-                >
-                  <Comments slug={slug} />
-                </div>
-              )}
-            </div>
-            <footer>
-              <div className="divide-gray-200 text-sm leading-5 font-medium xl:col-start-1 xl:row-start-2 xl:divide-y dark:divide-gray-700">
-                {tags && (
-                  <div className="py-4 xl:py-8">
-                    <h2 className="text-xs tracking-wide text-gray-500 uppercase dark:text-gray-400">
-                      Tags
-                    </h2>
-                    <div className="flex flex-wrap">
-                      {tags.map((tag) => (
-                        <Tag key={tag} text={tag} />
-                      ))}
+
+              {/* === MOVED "ABOUT" SECTION HERE === */}
+              {/* Đặt vào giữa bài viết và footer, dùng border-t để ngăn cách */}
+              <div className="border-t border-gray-200 px-4 py-6 sm:px-6 dark:border-gray-800">
+                <div className="grid gap-6 sm:grid-cols-2">
+                  {/* Cột 1: Authors & Tags */}
+                  <div className="space-y-6">
+                    {/* Authors */}
+                    <div>
+                      <div className="text-xs font-semibold tracking-wide text-gray-500 uppercase dark:text-gray-400">
+                        Authors
+                      </div>
+                      <ul className="mt-2 space-y-2">
+                        {authorDetails.map((author) => (
+                          <li
+                            key={author.name}
+                            className="flex items-center gap-3"
+                          >
+                            {author.avatar ? (
+                              <Image
+                                src={author.avatar}
+                                width={32}
+                                height={32}
+                                alt="avatar"
+                                className="h-8 w-8 rounded-full"
+                              />
+                            ) : null}
+                            <div className="min-w-0">
+                              <div className="truncate text-sm font-medium text-gray-900 dark:text-gray-100">
+                                {author.name}
+                              </div>
+                              {author.twitter ? (
+                                <Link
+                                  href={author.twitter}
+                                  className="text-xs text-gray-600 hover:underline dark:text-gray-300"
+                                >
+                                  {author.twitter
+                                    .replace('https://twitter.com/', '@')
+                                    .replace('https://x.com/', '@')}
+                                </Link>
+                              ) : null}
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                  </div>
-                )}
-                {(next || prev) && (
-                  <div className="flex justify-between py-4 xl:block xl:space-y-8 xl:py-8">
-                    {prev && prev.path && (
+
+                    {/* Tags */}
+                    {tags?.length ? (
                       <div>
-                        <h2 className="text-xs tracking-wide text-gray-500 uppercase dark:text-gray-400">
-                          Previous Article
-                        </h2>
-                        <div className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
-                          <Link href={`/${prev.path}`}>{prev.title}</Link>
+                        <div className="text-xs font-semibold tracking-wide text-gray-500 uppercase dark:text-gray-400">
+                          Topics
+                        </div>
+                        <div className="mt-2 flex flex-wrap gap-2">
+                          {tags.map((tag) => (
+                            <Tag key={tag} text={tag} />
+                          ))}
                         </div>
                       </div>
-                    )}
-                    {next && next.path && (
+                    ) : null}
+                  </div>
+
+                  {/* Cột 2: Navigation */}
+                  <div>
+                    {prev?.path || next?.path ? (
                       <div>
-                        <h2 className="text-xs tracking-wide text-gray-500 uppercase dark:text-gray-400">
-                          Next Article
-                        </h2>
-                        <div className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
-                          <Link href={`/${next.path}`}>{next.title}</Link>
+                        <div className="text-xs font-semibold tracking-wide text-gray-500 uppercase dark:text-gray-400">
+                          Navigation
+                        </div>
+                        <div className="mt-2 space-y-2">
+                          {prev?.path ? (
+                            <Link
+                              href={`/${prev.path}`}
+                              className="block rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-200 dark:hover:bg-gray-800"
+                            >
+                              <div className="text-xs text-gray-500 dark:text-gray-400">
+                                Previous
+                              </div>
+                              <div className="line-clamp-2 font-medium">
+                                {prev.title}
+                              </div>
+                            </Link>
+                          ) : null}
+                          {next?.path ? (
+                            <Link
+                              href={`/${next.path}`}
+                              className="block rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-200 dark:hover:bg-gray-800"
+                            >
+                              <div className="text-xs text-gray-500 dark:text-gray-400">
+                                Next
+                              </div>
+                              <div className="line-clamp-2 font-medium">
+                                {next.title}
+                              </div>
+                            </Link>
+                          ) : null}
                         </div>
                       </div>
-                    )}
+                    ) : null}
                   </div>
-                )}
+                </div>
               </div>
-              <div className="pt-4 xl:pt-8">
+              {/* === END MOVED SECTION === */}
+
+              {/* Footer toolbar */}
+              <div className="flex flex-col gap-3 border-t border-gray-200 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6 dark:border-gray-800">
+                <div className="flex flex-wrap items-center gap-2 text-sm">
+                  <Link
+                    href={editUrl(filePath)}
+                    className="text-gray-700 hover:underline dark:text-gray-200"
+                  >
+                    Edit this page
+                  </Link>
+                  <span className="text-gray-300 dark:text-gray-700">•</span>
+                  <Link
+                    href={discussUrl(path)}
+                    rel="nofollow"
+                    className="text-gray-700 hover:underline dark:text-gray-200"
+                  >
+                    Discuss
+                  </Link>
+                </div>
                 <Link
                   href={`/${basePath}`}
-                  className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+                  className="text-sm font-medium text-gray-700 hover:underline dark:text-gray-200"
                   aria-label="Back to the blog"
                 >
                   &larr; Back to the blog
                 </Link>
               </div>
-            </footer>
-          </div>
+            </div>
+
+            {/* Comments */}
+            {siteMetadata.comments ? (
+              <div
+                id="comment"
+                className="mt-6 rounded-lg border border-gray-200 bg-white px-4 py-6 sm:px-6 dark:border-gray-800 dark:bg-gray-950"
+              >
+                <Comments slug={slug} />
+              </div>
+            ) : null}
+          </main>
+
+          {/* Right sidebar - ONLY Table of Contents */}
+          <aside className="scrollbar-none pb-8 lg:sticky lg:top-32 lg:max-h-[calc(100vh-6rem)] lg:self-start lg:overflow-y-auto">
+            {content.toc && content.toc.length > 0 && (
+              <SidebarTOC toc={content.toc} />
+            )}
+          </aside>
         </div>
       </article>
     </SectionContainer>

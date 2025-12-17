@@ -131,11 +131,11 @@ export default function ListLayoutWithTags({
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[280px_1fr]">
         {/* Sidebar (Tags) */}
         <aside className="hidden lg:block">
-          <div className="sticky top-6 rounded-lg border border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-950">
+          <div className="sticky top-32 rounded-lg border border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-950">
             <div className="border-b border-gray-200 px-4 py-3 dark:border-gray-800">
               {pathname.startsWith('/blog') ? (
                 <div className="text-sm font-semibold text-gray-900 dark:text-gray-100">
-                  All Posts{' '}
+                  All Posts
                   <span className="text-gray-500 dark:text-gray-400">
                     ({posts.length})
                   </span>
@@ -145,7 +145,7 @@ export default function ListLayoutWithTags({
                   href="/blog"
                   className="hover:text-primary-500 dark:hover:text-primary-500 text-sm font-semibold text-gray-900 dark:text-gray-100"
                 >
-                  All Posts{' '}
+                  All Posts
                   <span className="text-gray-500 dark:text-gray-400">
                     ({posts.length})
                   </span>

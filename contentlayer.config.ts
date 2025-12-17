@@ -6,6 +6,7 @@ import {
 import { writeFileSync } from 'fs';
 import readingTime from 'reading-time';
 import { slug } from 'github-slugger';
+import GithubSlugger from 'github-slugger';
 import path from 'path';
 import { fromHtmlIsomorphic } from 'hast-util-from-html-isomorphic';
 // Remark packages
@@ -60,7 +61,33 @@ const computedFields: ComputedFields = {
     type: 'string',
     resolve: (doc) => doc._raw.sourceFilePath,
   },
-  toc: { type: 'json', resolve: (doc) => extractTocHeadings(doc.body.raw) },
+  toc: {
+    type: 'json',
+    resolve: (doc) => {
+      // 1. SỬA: Bỏ (?<flag>...) và (?<content>...) đi, chỉ để lại ngoặc tròn thường
+      const regXHeader = /\n(#{1,6})\s+(.+)/g;
+
+      const slugger = new GithubSlugger();
+
+      const headings = Array.from(doc.body.raw.matchAll(regXHeader)).map(
+        (match: RegExpMatchArray) => {
+          // 2. SỬA: Truy cập bằng index thay vì groups
+          // match[1] tương ứng với cụm (sấu thăng)
+          // match[2] tương ứng với cụm (nội dung text)
+          const flag = match[1];
+          const content = match[2];
+
+          return {
+            value: content ? content.trim() : '',
+            url: '#' + slugger.slug(content || ''),
+            depth: flag ? flag.length : 1,
+          };
+        },
+      );
+
+      return headings;
+    },
+  },
 };
 
 /**
