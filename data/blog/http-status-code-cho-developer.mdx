@@ -6,60 +6,169 @@ draft: false
 summary: HTTP Status Code cho Developer
 ---
 
+# Tóm tắt
+
+- Mở đầu
+- Nội dung
+- Kết
+
 # Mở đầu
 
 - Khi làm việc nhiều khi ae vẫn chưa rõ về các http status code nên viết blog này vừa để note, vừa để chia sẻ cho ae.
 
 - HTTP Response cho biết liệu một response HTTP cụ thể đã được hoàn thành thành công hay chưa.
 
-- HTTP Status Code được chia thành 5 nhóm:
-  - 1xx: Infomational Responses
-  - 2xx: Successful Responses
-  - 3xx: Redirection
-  - 4xx: Client Error
-  - 5xx: Server Error
+HTTP Status Code được chia thành 5 nhóm:
 
-- Các Status Code dưới đây được xác định bởi section 10 of RFC 2616. Ae có thể tìm thấy một đặc điểm kỹ thuật được cập nhật trong đây RFC 7231.
-- Nếu ae nhận được response không có trong danh sách này, thì đó là response không chuẩn, có thể là tùy chỉnh cho phần mềm của máy chủ nhé!
+- 1xx: Infomational Responses
+- 2xx: Successful Responses
+- 3xx: Redirection
+- 4xx: Client Error
+- 5xx: Server Error
 
-[Http Decision Diagram](https://github.com/for-GET/http-decision-diagram)
+Các Status Code dưới đây được xác định bởi section 10 of RFC 2616. Ae có thể tìm thấy một đặc điểm kỹ thuật được cập nhật trong đây RFC 7231.
+Nếu ae nhận được response không có trong danh sách này, thì đó là response không chuẩn, có thể là tùy chỉnh cho phần mềm của Server nhé!
 
-# HTTP Status Code
+[Http Decision Diagram](https://github.com/forGET/httpdecisiondiagram)
+
+# Nội dung
 
 ## 1xx: Informational responses
 
--**100 - Continue :** Response tạm thời này cho thấy mọi thứ cho đến nay đều ổn và khách hàng nên tiếp tục yêu cầu hoặc bỏ qua phản hồi nếu yêu cầu đã kết thúc.
+- **100 Continue :** Response tạm thời này cho thấy mọi thứ cho đến nay đều ổn và khách hàng nên tiếp tục yêu cầu hoặc bỏ qua Response nếu yêu cầu đã kết thúc.
 
--**101 - Switching Protocol:** Code này được gửi để đáp lại tiêu đề yêu cầu nâng cấp từ máy khách và cho biết giao thức mà máy chủ đang chuyển sang.
+- **101 Switching Protocol:** Code này được gửi để đáp lại tiêu đề yêu cầu nâng cấp từ máy khách và cho biết giao thức mà Server đang chuyển sang.
 
--**102 - Processing:** (WebDAV) Cho biết rằng máy chủ đã nhận được và đang xử lý yêu cầu, nhưng chưa có phản hồi nào
+- **102 Processing:** (WebDAV) Cho biết rằng Server đã nhận được và đang xử lý yêu cầu, nhưng chưa có Response nào
 
--**103 - Early Hints:** Trạng thái này chủ yếu được sử dụng với tiêu đề Liên kết, cho phép tác nhân người dùng bắt đầu tải trước tài nguyên trong khi máy chủ chuẩn bị phản hồi.
+- **103 Early Hints:** Trạng thái này chủ yếu được sử dụng với tiêu đề Liên kết, cho phép tác nhân người dùng bắt đầu tải trước tài nguyên trong khi Server chuẩn bị Response.
 
 ## 2xx: Successful responses
 
--**200 OK:** Yêu cầu đã thành công. Ý nghĩa của thành công phụ thuộc vào phương thức HTTP sau đây: -**GET:** dữ liệu đã được get về thành công. -**HEAD:** các tiêu đề, thực thể đều nằm trong response trả về. -**PUT or POST:** kết quả của hành động được trả về. -**TRACE:** Phần thân thông báo chứa thông báo yêu cầu mà máy che nhận được
+- **200 OK:** Yêu cầu đã thành công. Ý nghĩa của thành công phụ thuộc vào phương thức HTTP sau đây: **GET:** dữ liệu đã được get về thành công. **HEAD:** các tiêu đề, thực thể đều nằm trong response trả về. **PUT or POST:** kết quả của hành động được trả về. **TRACE:** Phần thân thông báo chứa thông báo yêu cầu mà máy che nhận được
 
--**201 Created:** Yêu cầu đã thành công và kết quả mới đã được tạo. Đây thường là phản hồi được gửi sau khi POST yêu cầu.
+- **201 Created:** Yêu cầu đã thành công và kết quả mới đã được tạo. Đây thường là Response được gửi sau khi POST yêu cầu.
 
--**202 Accepted:** Yêu cầu đã được nhận nhưng chưa được thực hiện. Vì HTTP không có cách nào để gửi phản hồi không đồng bộ cho biết kết quả của yêu cầu. Nó được dành cho các trường hợp trong đó một quy trình hoặc máy chủ khác xử lý yêu cầu hoặc xử lý hàng loạt.
+- **202 Accepted:** Yêu cầu đã được nhận nhưng chưa được thực hiện. Vì HTTP không có cách nào để gửi Response không đồng bộ cho biết kết quả của yêu cầu. Nó được dành cho các trường hợp trong đó một quy trình hoặc Server khác xử lý yêu cầu hoặc xử lý hàng loạt.
 
--**203 Non-Authoritative Information:** Phản hồi này có nghĩa là thông tin meta được trả về không hoàn toàn giống với thông tin có sẵn từ máy chủ.
+- **203 NonAuthoritative Information:** Response này có nghĩa là thông tin meta được trả về không hoàn toàn giống với thông tin có sẵn từ Server.
 
--**204 No Content Response:** không có nội dung trả về.
+- **204 No Content Response:** không có nội dung trả về.
 
--**205 Reset Content:** Yêu cầu người dùng thiết lập lại dữ liệu đã gửi yêu cầu đến máy chủ.
+- **205 Reset Content:** Yêu cầu người dùng thiết lập lại dữ liệu đã gửi yêu cầu đến Server.
 
--**206 Partial Content:** Phản hồi này được sử dụng khi Range tiêu đề được gửi từ client để chỉ yêu cầu một phần của tài nguyên.
+- **206 Partial Content:** Response này được sử dụng khi Range tiêu đề được gửi từ client để chỉ yêu cầu một phần của tài nguyên.
 
--**207 Multi-Status (WebDAV):** Truyền tải thông tin về nhiều tài nguyên, trong các tình huống có thể có nhiều trạng thái phù hợp.
+- **207 MultiStatus (WebDAV):** Truyền tải thông tin về nhiều tài nguyên, trong các tình huống có thể có nhiều trạng thái phù hợp.
 
--**208 Already Reported (WebDAV):** Được sử dụng bên trong một dav:propstat Phần tử phản hồi để tránh liên tục liệt kê nhiều ràng buộc.
+- **208 Already Reported (WebDAV):** Được sử dụng bên trong một dav:propstat Phần tử Response để tránh liên tục liệt kê nhiều ràng buộc.
 
--**226 IM Used:** (Mã hóa HTTP Delta) Máy chủ đã thực hiện một GET yêu cầu và phản hồi là một đại diện cho kết quả của một hoặc nhiều thao tác thể hiện được áp dụng cho thể hiện hiện tại.
+- **226 IM Used:** (Mã hóa HTTP Delta) Server đã thực hiện một GET yêu cầu và Response là một đại diện cho kết quả của một hoặc nhiều thao tác thể hiện được áp dụng cho thể hiện hiện tại.
 
 ## 3xx: Redirection.
 
+- **300 Multiple Choice:** Yêu cầu có nhiều hơn một response. (Không có cách chuẩn hóa nào để chọn một trong các câu trả lời, nhưng các liên kết HTML đến các khả năng được đề nghị để người dùng có thể chọn.)
+
+- **301 Moved Permanently:** URL được yêu cầu đã được thay đổi vĩnh viễn thay vào đó là 1 URL mới hoàn toàn.
+
+- **302 Found:** Response này có nghĩa là URI của tài nguyên được yêu cầu đã được thay đổi tạm thời.
+
+- **303 See Other:** Server đã gửi Response này để chỉ đạo client nhận tài nguyên được yêu cầu tại một URI khác với yêu cầu GET dữ liệu về.
+
+- **304 Not Modified:** Điều này được sử dụng cho mục đích lưu trữ. Nó báo với client rằng Response chưa được sửa đổi, vì vậy có thể tiếp tục sử dụng cùng một phiên bản được lưu trong bộ nhớ cache của Response.
+
+- **305 Use Proxy:** Được xác định trong phiên bản trước của đặc tả HTTP để chỉ ra rằng Response được yêu cầu phải được truy cập bởi proxy. Nó đã bị phản đối do những lo ngại về bảo mật liên quan đến cấu hình trong dải của proxy.
+
+- **306 unused:** Response này không còn được sử dụng; nó chỉ là dành riêng. Nó được sử dụng trong phiên bản trước của HTTP/1.1.
+
+- **307 Temporary Redirect:** Server gửi Response này để chỉ đạo client nhận tài nguyên được yêu cầu tại một URI khác với cùng phương thức đã được sử dụng trong yêu cầu trước đó. Điều này có giốg với 302 Found, người dùng không được thay đổi phương thức HTTP được sử dụng: Nếu ông A POST được sử dụng trong yêu cầu đầu tiên, thì POST phải sử dụng đến yêu cầu thứ hai.
+
+- **308 Permanent Redirect:** Điều này có nghĩa là dữ liệu hiện được đặt vĩnh viễn tại một URI khác, được chỉ định bởi Location: HTTP Response header. Điều này có cùng giống với 301 Moved Permanently.
+
 ## 4xx: Client error
 
+- **400 Bad Request:** Server: không hiểu yêu cầu do request không hợp lê.
+
+- **401 Unauthorized:** Response này có nghĩa là "không được xác thực". Đó là phía client phải tự xác thực để nhận được Response yêu cầu, trạng thái này nếu ai đã từ sử dụng basic Authen rồi thì sẽ rõ.
+
+- **402 Payment Required:** Mục đích ban đầu để tạo mã này là sử dụng nó cho các hệ thống thanh toán kỹ thuật số, tuy nhiên mã trạng thái này rất hiếm khi được sử dụng và không có quy ước chuẩn nào tồn tại.
+
+- **403 Forbidden:** Khách hàng không có quyền truy cập vào nội dung, vì vậy Server từ chối cung cấp tài nguyên được yêu cầu. Không giống như 401, danh tính của máy khách được biết đến Server.
+
+- **404 Not Found:** status này quá là quen thuộc nhể, Server nó không tìm thấy đc yêu cầu để trả về đơn giản truy cập 1 post mà không có trong hệ thống đó.
+
+- **405 Method Not Allowed:** trạng thái này là do sai phương thức khi gửi đi.
+
+- **406 Not Acceptable:** Response này được gửi khi Server web, sau khi thực hiện đàm phán nội dung do Server điều khiển, không tìm thấy bất kỳ nội dung nào phù hợp với tiêu chí do tác nhân người dùng đưa ra.
+
+- **407 Proxy Authentication Required:** Điều này tương tự với 401 nhưng việc xác thực là cần thiết để được thực hiện bởi một proxy.
+
+- **408 Request Timeout:** Response này được gửi trên một kết nối bởi một số Server, thậm chí không có bất kỳ yêu cầu nào trước đó của khách hàng. Điều đó có nghĩa là Server muốn tắt kết nối không sử dụng này. Response này được sử dụng nhiều hơn vì một số trình duyệt, như Chrome, Firefox 27+ hoặc IE9, sử dụng các cơ chế kết nối trước HTTP để tăng tốc độ lướt web. Cũng lưu ý rằng một số Server chỉ tắt kết nối mà không gửi trạng thái này.
+
+- **409 Conflict:** Response này được gửi khi yêu cầu xung đột với trạng thái hiện tại của Server.
+
+- **410 Gone:** Response này được gửi khi nội dung được yêu cầu đã bị xóa vĩnh viễn khỏi Server, không có địa chỉ chuyển tiếp. Khách hàng dự kiến sẽ loại bỏ bộ nhớ cache và liên kết đến tài nguyên. Đặc tả HTTP dự định mã trạng thái này sẽ được sử dụng cho "dịch vụ quảng cáo, thời gian giới hạn". API không cần bắt buộc phải chỉ ra các tài nguyên đã bị xóa với trạng thái này.
+
+- **411 Length Required:** Server từ chối yêu cầu vì trường ContentLength tiêu đề không được xác định và Server yêu cầu.
+
+- **412 Precondition Failed:** Client: đã chỉ ra các điều kiện tiên quyết trong các tiêu đề mà Server không đáp ứng.
+
+- **413 Payload Too Large:** Thực thể yêu cầu lớn hơn giới hạn được xác định bởi Server; Server có thể đóng kết nối hoặc trả về RetryAfter.
+
+- **414 URI Too Long:** URI được khách hàng yêu cầu dài hơn Server.
+
+- **415 Unsupported Media Type:** Định dạng phương tiện của dữ liệu được yêu cầu không được Server hỗ trợ, vì vậy Server sẽ từ chối yêu cầu.
+
+- **416 Range Not Satisfiable:** Phạm vi được chỉ định bởi trường Range trong yêu cầu không thể được thực hiện; có thể phạm vi nằm ngoài kích thước của dữ liệu của URI mục tiêu.
+
+- **417 Expectation Failed:** Mã Response này có nghĩa là sự mong đợi được chỉ ra bởi trường Expect tiêu đề yêu cầu không thể được đáp ứng bởi Server.
+
+- **418 I'm a teapot:** Server từ chối request.
+
+- **421 Misdirected Request:** Yêu cầu được hướng đến một Server không thể tạo Response. Điều này có thể được gửi bởi một Server không được cấu hình để tạo Response cho sự kết hợp giữa lược đồ và quyền hạn được bao gồm trong URI yêu cầu.
+
+- **422 Unprocessable Entity(WebDAV):** Yêu cầu được hình thành tốt nhưng không thể thực hiện được do lỗi ngữ nghĩa.
+
+- **423 Locked(WebDAV):** Tài nguyên đang được truy cập bị khóa.
+
+- **424 Failed Dependency(WebDAV):** Yêu cầu không thành công do thất bại của yêu cầu trước đó.
+
+- **425 Too Early:** Chỉ ra rằng Server không sẵn sàng xử lý yêu cầu.
+
+- **426 Upgrade Required:** Server từ chối thực hiện yêu cầu bằng giao thức hiện tại nhưng có thể sẵn sàng thực hiện sau khi máy khách nâng cấp lên giao thức khác. Server gửi một Upgrade tiêu đề trong Response 426 để chỉ ra các giao thức được yêu cầu.
+
+- **428 Precondition Required:** Server gốc yêu cầu phải có điều kiện. Response này nhằm ngăn chặn sự cố 'lost update', trong đó máy khách nhận trạng thái của tài nguyên, sửa đổi nó và đưa nó trở lại Server, trong khi đó, bên thứ ba đã sửa đổi trạng thái trên Server, dẫn đến xung đột.
+
+- **429 Too Many Requests:** Người dùng đã gửi quá nhiều yêu cầu trong một khoảng thời gian nhất định ("rate limiting").
+
+- **431 Request Header Fields Too Large:** Server không sẵn sàng xử lý yêu cầu vì các trường tiêu đề của nó quá lớn. Yêu cầu có thể được gửi lại sau khi giảm kích thước của các trường tiêu đề yêu cầu.
+
+- **451 Unavailable For Legal Reasons:** Tác nhân người dùng đã yêu cầu một tài nguyên không thể được cung cấp một cách hợp pháp, chẳng hạn như một trang web được kiểm duyệt bởi chính phủ.
+
 ## 5xx: Server error
+
+- **500 Internal Server Error:** Server đã gặp phải tình huống không biết cách xử lý.
+
+- **501 Not Implemented:** Phương thức yêu cầu không được Server hỗ trợ và không thể xử lý. Các phương thức duy nhất mà các Server được yêu cầu hỗ trợ (và do đó không phải trả lại mã này) là GET và HEAD.
+
+- **502 Bad Gateway:** Response lỗi này có nghĩa là Server, trong khi làm việc như một cổng để nhận được Response cần thiết để xử lý yêu cầu, đã nhận được Response không hợp lệ.
+
+- **503 Service Unavailable:** Server chưa sẵn sàng để xử lý yêu cầu. Nguyên nhân phổ biến là một Server ngừng hoạt động để bảo trì hoặc bị quá tải. Lưu ý rằng cùng với Response này, một trang thân thiện với người dùng giải thích vấn đề nên được gửi. Response này nên được sử dụng cho các điều kiện tạm thời và Retry-After, nếu có thể, chứa thời gian ước tính trước khi phục hồi dịch vụ. Quản trị viên web cũng phải quan tâm đến các tiêu đề liên quan đến bộ đệm được gửi cùng với Response này, vì các Response điều kiện tạm thời này thường không nên được lưu vào bộ đệm.
+
+- **504 Gateway Timeout:** Response lỗi này được đưa ra khi Server hoạt động như một cổng và không thể nhận được Response kịp thời.
+
+- **505 HTTP Version Not Supported:** Phiên bản HTTP được sử dụng trong yêu cầu không được Server hỗ trợ.
+
+- **506 Variant Also Negotiates:** Server có lỗi cấu hình bên trong tài nguyên biến thể được chọn được cấu hình để tham gia vào quá trình đàm phán nội dung minh bạch, và do đó không phải là điểm kết thúc thích hợp trong quá trình đàm phán.
+
+- **507 Insufficient Storage(WebDAV):** Phương thức không thể được thực hiện trên tài nguyên vì Server không thể lưu trữ biểu diễn cần thiết để hoàn thành yêu cầu.
+
+- **508 Loop Detected(WebDAV):** Server đã phát hiện một vòng lặp vô hạn trong khi xử lý yêu cầu.
+
+- **510 Not Extended:** Cần mở rộng thêm cho yêu cầu để Server thực hiện nó.
+
+- **511 Network Authenticatiokhảoquired:** Mã trạng thái 511 chỉ ra rằng máy khách cần xác thực để có quyền truy cập mạng.
+
+# Kết
+
+- Nếu là 1 dev Fe, đang ghép api, nếu thấy bất kì response nào 500, nhớ báo luôn BE nhé, không là bi đi cả lũ. Cảm ơn ae.
