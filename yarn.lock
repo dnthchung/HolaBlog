@@ -11533,14 +11533,10 @@ __metadata:
     next-themes: ^0.4.6
     pliny: 0.4.1
     postcss: ^8.4.24
-    prettier: ^3.0.0
-    prettier-plugin-tailwindcss: ^0.6.11
-    react: 19.0.1
-    react-dom: 19.0.1
     prettier: 3.2.5
     prettier-plugin-tailwindcss: 0.6.11
-    react: 19.0.0
-    react-dom: 19.0.0
+    react: 19.0.1
+    react-dom: 19.0.1
     reading-time: 1.5.0
     rehype-autolink-headings: ^7.1.0
     rehype-citation: ^2.3.0
