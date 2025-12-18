@@ -2,6 +2,7 @@ import Link from '@/components/Link';
 import { slug } from 'github-slugger';
 import tagData from 'app/tag-data.json';
 import { genPageMetadata } from 'app/seo';
+import { getTagClassName } from '@/helpers/tag-style.helper';
 
 export const metadata = genPageMetadata({
   title: 'Tags',
@@ -14,38 +15,51 @@ export default async function Page() {
   const sortedTags = tagKeys.sort((a, b) => tagCounts[b] - tagCounts[a]);
 
   return (
-    <>
-      <div className="flex flex-col items-start justify-start divide-y divide-gray-200 md:mt-24 md:flex-row md:items-center md:justify-center md:space-x-6 md:divide-y-0 dark:divide-gray-700">
-        <div className="space-x-2 pt-6 pb-8 md:space-y-5">
-          <h1 className="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10 md:border-r-2 md:px-6 md:text-6xl md:leading-14 dark:text-gray-100">
-            Tags
-          </h1>
-        </div>
+    <div className="mx-auto max-w-6xl px-4 sm:px-6">
+      {/* Header Section */}
+      <div className="flex flex-col gap-2 pt-6 pb-8 text-center md:pt-10">
+        <h1 className="text-2xl font-semibold tracking-tight text-gray-900 sm:text-3xl dark:text-gray-100">
+          Tags
+        </h1>
+        <p className="text-sm text-gray-500 dark:text-gray-400">
+          Browse posts by topics and categories.
+        </p>
+      </div>
 
-        {/* SỬA PHẦN NÀY: Dùng flex-wrap và gap để căn chỉnh đẹp hơn */}
-        <div className="flex max-w-lg flex-wrap gap-3">
-          {tagKeys.length === 0 && 'No tags found.'}
-
-          {sortedTags.map((t) => {
-            return (
-              <Link
-                key={t}
-                href={`/tags/${slug(t)}`}
-                // Copy style từ component Tag của bạn, nhưng điều chỉnh padding để chứa cả số lượng
-                className="group inline-flex items-center rounded-full border border-gray-200 bg-gray-50 px-3 py-1 text-sm font-medium text-gray-700 hover:border-gray-300 hover:bg-gray-100 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-300 dark:hover:border-gray-700 dark:hover:bg-gray-800"
-              >
-                {/* Tên Tag */}
-                <span className="uppercase">{t}</span>
-
-                {/* Số lượng - Hiển thị như một badge nhỏ bên trong */}
-                <span className="ml-2 inline-flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-gray-200 px-1 text-xs text-gray-600 group-hover:bg-gray-300 dark:bg-gray-800 dark:text-gray-400 dark:group-hover:bg-gray-700">
-                  {tagCounts[t]}
-                </span>
-              </Link>
-            );
-          })}
+      {/* Tags Container */}
+      <div className="flex justify-center">
+        {/* Giới hạn max-width của cụm Tags để không dàn trải hết màn hình */}
+        <div className="max-w-3xl rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-950">
+          <div className="flex flex-wrap justify-center gap-3">
+            {tagKeys.length === 0 && (
+              <div className="w-full text-center text-sm text-gray-500">
+                No tags found.
+              </div>
+            )}
+            {sortedTags.map((t) => {
+              return (
+                <Link
+                  key={t}
+                  href={`/tags/${slug(t)}`}
+                  className={`group whitespace-nowrap transition-all hover:scale-105 active:scale-95 ${getTagClassName(t)}`}
+                >
+                  <span className="tracking-wide uppercase">{t}</span>
+                  <span className="ml-2 flex items-center justify-center border-l border-current/20 pl-2 text-[10px] font-bold opacity-70">
+                    {tagCounts[t]}
+                  </span>
+                </Link>
+              );
+            })}
+          </div>
         </div>
       </div>
-    </>
+
+      {/* Footer gợi ý nhỏ */}
+      <div className="mx-auto mt-8 max-w-3xl border-t border-gray-100 pt-4 text-center dark:border-gray-800">
+        <p className="text-[11px] text-gray-400 dark:text-gray-500">
+          Total {tagKeys.length} topics identified.
+        </p>
+      </div>
+    </div>
   );
 }

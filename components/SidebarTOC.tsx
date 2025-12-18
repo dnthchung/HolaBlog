@@ -1,4 +1,5 @@
 'use client';
+
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
@@ -14,8 +15,11 @@ interface Props {
 
 const SidebarTOC = ({ toc }: Props) => {
   const [activeId, setActiveId] = useState<string>('');
+  const filteredToc = toc.filter((item) => item.depth <= 3);
 
   useEffect(() => {
+    if (!filteredToc.length) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -24,29 +28,25 @@ const SidebarTOC = ({ toc }: Props) => {
           }
         });
       },
-      { rootMargin: '0% 0% -80% 0%' },
+      {
+        rootMargin: '0% 0% -80% 0%',
+      },
     );
 
-    toc.forEach((item) => {
+    filteredToc.forEach((item) => {
       const element = document.getElementById(item.url.slice(1));
-      if (element) {
-        observer.observe(element);
-      }
+      if (element) observer.observe(element);
     });
 
     return () => {
-      toc.forEach((item) => {
+      filteredToc.forEach((item) => {
         const element = document.getElementById(item.url.slice(1));
-        if (element) {
-          observer.unobserve(element);
-        }
+        if (element) observer.unobserve(element);
       });
     };
-  }, [toc]);
+  }, [filteredToc]);
 
-  if (!toc || toc.length === 0) {
-    return null;
-  }
+  if (!filteredToc.length) return null;
 
   return (
     <div className="rounded-lg border border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-950">
@@ -55,15 +55,15 @@ const SidebarTOC = ({ toc }: Props) => {
           Table of Contents
         </h2>
       </div>
+
       <div className="px-4 py-4">
         <ul className="space-y-2">
-          {toc.map((item) => (
+          {filteredToc.map((item) => (
             <li
               key={item.url}
-              // H1 -> 0px
-              // H2 -> 20px
-              // H3 -> 40px
-              style={{ paddingLeft: `${(item.depth - 1) * 20}px` }}
+              style={{
+                paddingLeft: `${(item.depth - 1) * 20}px`,
+              }}
             >
               <Link
                 href={item.url}
@@ -80,7 +80,7 @@ const SidebarTOC = ({ toc }: Props) => {
                       top:
                         element.getBoundingClientRect().top +
                         window.scrollY -
-                        100, // Offset for header
+                        100,
                       behavior: 'smooth',
                     });
                   }

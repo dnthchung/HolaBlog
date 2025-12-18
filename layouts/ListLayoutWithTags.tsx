@@ -226,7 +226,7 @@ export default function ListLayoutWithTags({
                         </div>
 
                         {/* right meta placeholder (optional) */}
-                        <div className="hidden shrink-0 items-center gap-2 text-xs text-gray-500 sm:flex dark:text-gray-400">
+                        <div className="hidden shrink-0 items-center gap-2 text-xs text-black sm:flex dark:text-white">
                           <span className="rounded-md border border-gray-200 bg-gray-50 px-2 py-1 dark:border-gray-800 dark:bg-gray-900">
                             Post
                           </span>
