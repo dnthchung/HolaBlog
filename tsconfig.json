@@ -22,6 +22,7 @@
       "@/layouts/*": ["layouts/*"],
       "@/css/*": ["css/*"],
       "contentlayer/generated": ["./.contentlayer/generated"],
+      "@/helpers/*": ["helpers/*"],
       "pliny/*": ["node_modules/pliny/*"]
     },
     "plugins": [

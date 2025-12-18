@@ -114,28 +114,17 @@ export default function ListLayoutWithTags({
         <h1 className="text-2xl font-semibold tracking-tight text-gray-900 dark:text-gray-100">
           {title}
         </h1>
-
-        {/* optional search placeholder giống GitHub */}
-        <div className="hidden sm:block">
-          <div className="flex items-center gap-2 rounded-md border border-gray-200 bg-white px-3 py-2 text-sm text-gray-500 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-400">
-            <span className="select-none">Type</span>
-            <kbd className="rounded border border-gray-200 bg-gray-50 px-1.5 py-0.5 text-xs text-gray-600 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300">
-              /
-            </kbd>
-            <span className="select-none">to search</span>
-          </div>
-        </div>
       </div>
 
       {/* Layout */}
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[280px_1fr]">
         {/* Sidebar (Tags) */}
         <aside className="hidden lg:block">
-          <div className="sticky top-6 rounded-lg border border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-950">
+          <div className="sticky top-32 rounded-lg border border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-950">
             <div className="border-b border-gray-200 px-4 py-3 dark:border-gray-800">
               {pathname.startsWith('/blog') ? (
                 <div className="text-sm font-semibold text-gray-900 dark:text-gray-100">
-                  All Posts{' '}
+                  All Posts
                   <span className="text-gray-500 dark:text-gray-400">
                     ({posts.length})
                   </span>
@@ -145,7 +134,7 @@ export default function ListLayoutWithTags({
                   href="/blog"
                   className="hover:text-primary-500 dark:hover:text-primary-500 text-sm font-semibold text-gray-900 dark:text-gray-100"
                 >
-                  All Posts{' '}
+                  All Posts
                   <span className="text-gray-500 dark:text-gray-400">
                     ({posts.length})
                   </span>
@@ -226,7 +215,7 @@ export default function ListLayoutWithTags({
                         </div>
 
                         {/* right meta placeholder (optional) */}
-                        <div className="hidden shrink-0 items-center gap-2 text-xs text-gray-500 sm:flex dark:text-gray-400">
+                        <div className="hidden shrink-0 items-center gap-2 text-xs text-black sm:flex dark:text-white">
                           <span className="rounded-md border border-gray-200 bg-gray-50 px-2 py-1 dark:border-gray-800 dark:bg-gray-900">
                             Post
                           </span>

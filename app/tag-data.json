@@ -1,6 +1,9 @@
 {
-  "vi": 2,
+  "vi": 3,
   "code": 2,
+  "git": 1,
+  "working": 1,
+  "workflow": 1,
   "multi-author": 1,
   "next-js": 1,
   "feature": 1

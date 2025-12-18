@@ -47,7 +47,7 @@ const projectsData = [
   {
     title: 'Smart Attendance on School Bus',
     role: 'Front-end (Web & Mobile)',
-    company: 'FPT Software (OS Phong Linh Company)',
+    company: 'FPT Software',
     period: '05/2024 - 11/2024',
     description: [
       'Enabled automatic student check-in/out through integration with smart bus camera systems.',

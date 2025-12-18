@@ -1,18 +1,11 @@
 import Link from 'next/link';
 import { slug } from 'github-slugger';
-interface Props {
-  text: string;
-}
+import { getTagClassName } from '@/helpers/tag-style.helper';
 
-const Tag = ({ text }: Props) => {
-  return (
-    <Link
-      href={`/tags/${slug(text)}`}
-      className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 mr-3 text-sm font-medium uppercase"
-    >
-      {text.split(' ').join('-')}
-    </Link>
-  );
-};
+const Tag = ({ text }: { text: string }) => (
+  <Link href={`/tags/${slug(text)}`} className={getTagClassName(text)}>
+    {text}
+  </Link>
+);
 
 export default Tag;

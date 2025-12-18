@@ -91,7 +91,11 @@ export default () => {
         },
       ];
     },
-    webpack: (config, options) => {
+    webpack: (config, { dev, isServer }) => {
+      config.infrastructureLogging = {
+        level: 'error',
+      };
+
       config.module.rules.push({
         test: /\.svg$/,
         use: ['@svgr/webpack'],

@@ -15,12 +15,12 @@ const compat = new FlatCompat({
 export default [
   {
     ignores: [
-      ".next/**",
-      ".contentlayer/**",
-      ".yarn/**",
-      "node_modules/**",
-      "public/**",
-      "**/*.d.ts"
+      '.next/**',
+      '.contentlayer/**',
+      '.yarn/**',
+      'node_modules/**',
+      'public/**',
+      '**/*.d.ts',
     ],
   },
   js.configs.recommended,

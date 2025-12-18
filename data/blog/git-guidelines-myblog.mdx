@@ -1,0 +1,296 @@
+---
+title: Branch Rule và Git Flow áp dụng cho dự án mới.
+date: '2025-12-18'
+tags: ['git', 'working', 'vi', 'workflow']
+draft: false
+summary: Hướng dẫn chi tiết về Git Flow, Naming Convention và quy trình làm việc cho dự án MyBlog (MB1900).
+---
+
+Trong quá trình xây dựng dự án **MyBlog (MB1900)** từ con số 0 tại **BP1**, việc thống nhất quy trình làm việc với Git ngay từ đầu là yếu tố then chốt giúp team phát triển nhanh, ít lỗi và dễ mở rộng về sau.
+
+Tài liệu này quy định quy trình làm việc (Workflow), cách đặt tên (Naming Convention) và các quy tắc khi làm việc với Git trên hệ thống GitLab của khách hàng.
+
+---
+
+## 1. GIT FLOW
+
+Vì MyBlog đang trong giai đoạn phát triển ban đầu, mô hình Git Flow được tối giản để tập trung vào **phát triển tính năng và tích hợp liên tục**.
+
+### Các nhánh chính (Main Branches)
+
+- **`master`**: Nhánh chính chứa mã nguồn ổn định để release lên môi trường Production.
+- **`develop`**: Nhánh phát triển chính, nơi tích hợp code từ tất cả các thành viên. Phản ánh trạng thái của phiên bản tiếp theo.
+
+### Các nhánh phụ trợ (Supporting Branches)
+
+Mỗi branch được tách từ `develop` và merge ngược lại vào `develop` sau khi hoàn thành.
+
+| Loại công việc | Prefix     | Cấu trúc tên nhánh                  | Ví dụ                         |
+| :------------- | :--------- | :---------------------------------- | :---------------------------- |
+| Tính năng mới  | `feature`  | `feature/{short-name}/{Ticket-ID}`  | `feature/login/MB1900-12`     |
+| Sửa lỗi        | `bugfix`   | `bugfix/{short-name}/{Ticket-ID}`   | `bugfix/fix-ui/MB1900-15`     |
+| Task kỹ thuật  | `task`     | `task/{short-name}/{Ticket-ID}`     | `task/setup-ci/MB1900-11`     |
+| Refactor code  | `refactor` | `refactor/{short-name}/{Ticket-ID}` | `refactor/user-api/MB1900-20` |
+
+> **Lưu ý:** Một nhánh chỉ phục vụ **một ticket** và không tái sử dụng branch đã merge.
+
+---
+
+## 2. COMMIT MESSAGE CONVENTION
+
+Áp dụng **Conventional Commits** để phục vụ CI/CD, tự động hóa việc release version (Semantic Release) và kiểm tra format tự động (Commitlint).
+
+**Cấu trúc bắt buộc:**
+
+```text
+<type>[optional scope]: <description>
+
+[optional body]
+[optional footer(s)]
+
+```
+
+**Quy tắc viết Description:**
+
+- Sử dụng **tiếng Anh**.
+- Không viết hoa chữ cái đầu, không dấu chấm cuối câu.
+- Dùng thể mệnh lệnh (ví dụ: `add` thay vì `added` hoặc `adds`).
+
+**Các loại Type phổ biến:**
+
+| Type         | Ý nghĩa                        | Tác động Version (Semantic Release) |
+| ------------ | ------------------------------ | ----------------------------------- |
+| **feat**     | Thêm tính năng mới             | **MINOR** (v1.0.0 -> v1.1.0)        |
+| **fix**      | Sửa lỗi (bug fix)              | **PATCH** (v1.0.0 -> v1.0.1)        |
+| **refactor** | Cải tổ code, không đổi logic   | **PATCH**                           |
+| **docs**     | Chỉnh sửa tài liệu             | **PATCH**                           |
+| **style**    | Format code (vô hình với user) | **PATCH**                           |
+| **test**     | Thêm/sửa test case             | Không tăng version                  |
+| **ci**       | Thay đổi cấu hình CI/CD        | Không tăng version                  |
+
+---
+
+## 3. QUY TRÌNH LÀM VIỆC
+
+Giả sử aeđang thực hiện ticket **MB1900-12**.
+
+### Bước 1: Bắt đầu từ `develop` mới nhất
+
+```bash
+git checkout develop
+git pull origin develop
+
+```
+
+### Bước 2: Tạo branch làm việc
+
+```bash
+git checkout -b feature/login/MB1900-12
+
+```
+
+### Bước 3: Code và Commit
+
+Dự án có cài đặt **Husky** và **Commitlint**, nếu message sai format sẽ không thể commit.
+
+```bash
+git add .
+git commit -m "feat(auth): implement login with google"
+
+```
+
+_Nguyên tắc: One commit – one purpose._
+
+### Bước 4: Đồng bộ code từ `develop` (Rebase)
+
+Khuyến nghị dùng `rebase` để giữ lịch sử commit thẳng hàng, sạch đẹp.
+
+```bash
+git fetch origin develop
+git rebase origin/develop
+
+```
+
+_Nếu có conflict: Sửa file, sau đó `git add <file>` và `git rebase --continue`._
+
+### Bước 5: Đẩy code (Push) và Tạo Merge Request (MR)
+
+```bash
+git push origin feature/login/MB1900-12 -f
+
+```
+
+**Checklist khi tạo MR trên GitLab:**
+
+1. **Tiêu đề:** Thêm `WIP:` nếu chưa xong, `[DONT MERGE]` nếu chưa sẵn sàng.
+2. **Description:** Bắt buộc đính kèm link ticket (ví dụ: MB1900-12).
+3. **Review:** Gửi link cho đồng nghiệp. Chỉ merge khi có ít nhất **1 approve** hoặc comment **LGTM**.
+
+### Bước 6: Merge và xóa branch
+
+Sau khi merge thành công vào `develop`, hãy xóa branch làm việc để giữ repository gọn gàng.
+
+---
+
+## 4. CI/CD VÀ KIỂM TRA TỰ ĐỘNG
+
+Dự án **MyBlog** tích hợp sẵn các công cụ tự động trên GitLab CI:
+
+- **Commitlint:** Kiểm tra format commit message ngay khi tạo MR. Nếu sai, pipeline sẽ báo lỗi (fail).
+- **Semantic Release:** Khi code được merge vào nhánh **master**, hệ thống tự động:
+- Phân tích commit để quyết định tăng version (Major/Minor/Patch).
+- Tự động tạo Git Tag.
+- Tự động sinh file Changelog (Release Note).
+
+---
+
+## 5. XỬ LÝ SỰ CỐ THƯỜNG GẶP
+
+- **Muốn sửa message commit vừa tạo:**
+  `git commit --amend -m "feat(new): new message here"`
+- **Muốn quay lại trạng thái trước khi commit (giữ lại code đã sửa):**
+  `git reset --soft HEAD~1`
+- **Muốn hủy bỏ hoàn toàn thay đổi, quay về commit gần nhất:**
+  `git reset --hard HEAD`
+
+---
+
+## 6. Ví dụ thực tiễn: Xử lý DTask có nhiều Sub-task cho đúng Git Flow
+
+### Tình huống thực tế (có step-by-step)
+
+Trong backlog có một **DTask cha** và các **sub-task** như sau:
+
+- **DTask:** `PB1MB1900-352` – `[KJ-803] implement PR video function and change flow register`
+- **Sub-task 1:** `PB1MB1900-358` – `[Admin] tạo button thêm PR video`
+- **Sub-task 2:** `PB1MB1900-359` – `[Admin] màn hình thêm video PR`
+
+Theo guideline:
+
+> **1 branch = 1 ticket**, nên **mỗi sub-task phải có branch riêng** (không dùng DTask cha để đặt tên branch làm việc).
+
+#### Quy trình làm đúng (Step-by-step)
+
+Giả sử ae bắt đầu với sub-task **PB1MB1900-358**:
+
+**Bước 1: Checkout `develop` và pull code mới nhất**
+
+```bash
+git checkout develop
+git pull origin develop
+```
+
+**Bước 2: Tạo branch đúng ticket đang làm**
+
+```bash
+git checkout -b feature/add-import-video-button/PB1MB1900-358
+```
+
+**Bước 3: Code và commit đúng convention**
+
+```bash
+git add .
+git commit -m "feat(video): add create pr video button"
+```
+
+**Bước 4: Rebase để cập nhật code mới nhất từ develop**
+
+```bash
+git fetch origin develop
+git rebase origin/develop
+```
+
+**Bước 5: Push và tạo MR - Merge Request**
+
+```bash
+git push -u origin feature/add-import-video-button/PB1MB1900-358
+```
+
+Tạo MR vào `develop`, gắn ticket `PB1MB1900-358`, chờ review/approve.
+
+---
+
+Sau khi MR của **PB1MB1900-358** được merge, ae chuyển sang sub-task **PB1MB1900-359**:
+
+**Bước 6: Tạo branch mới cho sub-task 359 từ develop**
+
+```bash
+git checkout develop
+git pull origin develop
+git checkout -b feature/pr-video-create-screen/PB1MB1900-359
+```
+
+**Bước 7: Code, commit, rebase, push, MR**
+
+```bash
+git add .
+git commit -m "feat(video): implement pr video create screen"
+
+git fetch origin develop
+git rebase origin/develop
+
+git push -u origin feature/pr-video-create-screen/PB1MB1900-359
+```
+
+Kết quả đúng chuẩn:
+
+- `feature/.../PB1MB1900-358` => MR #1 => `develop`
+- `feature/.../PB1MB1900-359` => MR #2 => `develop`
+- DTask `PB1MB1900-352` được đóng khi cả 2 sub-task hoàn tất.
+
+---
+
+### Tình huống phát sinh (lỡ tạo sai branch theo DTask cha)
+
+Trong thực tế, đôi khi dev có thể lỡ tạo branch theo DTask cha, ví dụ đang làm **PB1MB1900-358** nhưng branch local lại là:
+
+```text
+feature/add-import-video-button/PB1MB1900-352
+```
+
+Trong khi commit thực tế chỉ là:
+
+```text
+feat(video): add create pr video button
+```
+
+👉 Nghĩa là code chỉ phục vụ **PB1MB1900-358**, nhưng branch name lại mang **PB1MB1900-352**, không đúng quy tắc _1 branch = 1 ticket_.
+
+---
+
+### Cách xử lý đúng theo Git Flow (không mất commit)
+
+#### Bước 1: Đổi tên branch local cho đúng sub-task
+
+```bash
+git branch -m
+feature/add-import-video-button/PB1MB1900-352
+feature/add-import-video-button/PB1MB1900-358
+```
+
+#### Bước 2: Push branch mới lên remote
+
+```bash
+git push -u origin feature/add-import-video-button/PB1MB1900-358
+```
+
+#### Bước 3 (tuỳ chọn): Nếu branch cũ đã push lên remote thì xóa để tránh nhầm
+
+```bash
+git push origin --delete feature/add-import-video-button/PB1MB1900-352
+```
+
+#### Bước 4: Tạo branch riêng cho sub-task còn lại (PB1MB1900-359)
+
+```bash
+git checkout develop
+git pull origin develop
+git checkout -b feature/pr-video-create-screen/PB1MB1900-359
+```
+
+---
+
+### Quy tắc vàng
+
+> **Ticket nào đang implement => branch mang đúng ticket đó.**
+> DTask chỉ là “tổng quản lý tiến độ”, không dùng làm branch phát triển.
