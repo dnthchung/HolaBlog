@@ -114,17 +114,6 @@ export default function ListLayoutWithTags({
         <h1 className="text-2xl font-semibold tracking-tight text-gray-900 dark:text-gray-100">
           {title}
         </h1>
-
-        {/* optional search placeholder giống GitHub */}
-        <div className="hidden sm:block">
-          <div className="flex items-center gap-2 rounded-md border border-gray-200 bg-white px-3 py-2 text-sm text-gray-500 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-400">
-            <span className="select-none">Type</span>
-            <kbd className="rounded border border-gray-200 bg-gray-50 px-1.5 py-0.5 text-xs text-gray-600 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300">
-              /
-            </kbd>
-            <span className="select-none">to search</span>
-          </div>
-        </div>
       </div>
 
       {/* Layout */}
