@@ -1,5 +1,3 @@
-'use client';
-
 import { ReactNode } from 'react';
 import type { Authors } from 'contentlayer/generated';
 import SocialIcon from '@/components/social-icons';
@@ -43,6 +41,7 @@ export default function AuthorLayout({ children, content }: Props) {
                 width={192}
                 height={192}
                 className="h-48 w-48 rounded-full"
+                priority
               />
             )}
             <div className="mt-4 text-center lg:text-left">
