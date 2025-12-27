@@ -21,7 +21,7 @@ export const SearchProvider = ({ children }) => {
             keywords: 'trang chu home index',
             shortcut: ['h'],
             section: 'Navigation',
-            perform: () => router.push(`${basePath}/`),
+            perform: () => router.push('/'),
           },
           {
             id: 'blog-page-action',
@@ -29,7 +29,7 @@ export const SearchProvider = ({ children }) => {
             keywords: 'posts bài viết',
             shortcut: ['b'],
             section: 'Navigation',
-            perform: () => router.push(`${basePath}/blog`),
+            perform: () => router.push('/blog'),
           },
           {
             id: 'projects-page-action',
@@ -37,7 +37,7 @@ export const SearchProvider = ({ children }) => {
             keywords: 'du an projects work',
             shortcut: ['p'],
             section: 'Navigation',
-            perform: () => router.push(`${basePath}/projects`),
+            perform: () => router.push('/projects'),
           },
         ],
         onSearchDocumentsLoad(json) {
@@ -47,7 +47,7 @@ export const SearchProvider = ({ children }) => {
             keywords: post?.summary || '',
             section: 'Blog Posts',
             subtitle: post.tags?.join(', ') || '',
-            perform: () => router.push(`${basePath}/${post.path}`),
+            perform: () => router.push('/' + post.path),
           }));
         },
       }}

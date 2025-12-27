@@ -68,6 +68,9 @@ export default () => {
   return plugins.reduce((acc, next) => next(acc), {
     output,
     basePath,
+    env: {
+      BASE_PATH: basePath,
+    },
     reactStrictMode: true,
     trailingSlash: false,
     pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
