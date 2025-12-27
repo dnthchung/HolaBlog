@@ -5,21 +5,23 @@ import { useRouter } from 'next/navigation';
 import { CoreContent } from 'pliny/utils/contentlayer';
 import { Blog } from 'contentlayer/generated';
 
+const basePath = process.env.BASE_PATH || '';
+
 export const SearchProvider = ({ children }) => {
   const router = useRouter();
 
   return (
     <KBarSearchProvider
       kbarConfig={{
-        searchDocumentsPath: 'search.json',
+        searchDocumentsPath: `${basePath}/search.json`,
         defaultActions: [
           {
-            id: 'home-page-action', // Thằng ID phải là duy nhất
+            id: 'home-page-action',
             name: 'Home',
             keywords: 'trang chu home index',
-            shortcut: ['h'], // Thay đổi thành 1 phím duy nhất để tránh lỗi render key 'h' hai lần
+            shortcut: ['h'],
             section: 'Navigation',
-            perform: () => router.push('/'),
+            perform: () => router.push(`${basePath}/`),
           },
           {
             id: 'blog-page-action',
@@ -27,7 +29,7 @@ export const SearchProvider = ({ children }) => {
             keywords: 'posts bài viết',
             shortcut: ['b'],
             section: 'Navigation',
-            perform: () => router.push('/blog'),
+            perform: () => router.push(`${basePath}/blog`),
           },
           {
             id: 'projects-page-action',
@@ -35,7 +37,7 @@ export const SearchProvider = ({ children }) => {
             keywords: 'du an projects work',
             shortcut: ['p'],
             section: 'Navigation',
-            perform: () => router.push('/projects'),
+            perform: () => router.push(`${basePath}/projects`),
           },
         ],
         onSearchDocumentsLoad(json) {
@@ -45,7 +47,7 @@ export const SearchProvider = ({ children }) => {
             keywords: post?.summary || '',
             section: 'Blog Posts',
             subtitle: post.tags?.join(', ') || '',
-            perform: () => router.push('/' + post.path),
+            perform: () => router.push(`${basePath}/${post.path}`),
           }));
         },
       }}
