@@ -89,10 +89,10 @@ export default function Projects() {
                 {/* Phần 2: Vai trò/Công việc cụ thể (Responsibilities) - MỚI THÊM */}
                 {d.responsibilities && d.responsibilities.length > 0 && (
                   <div className="mt-4">
-                    <h4 className="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-500 mb-2">
+                    <h4 className="mb-2 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-500">
                       Key Contributions:
                     </h4>
-                    <ul className="space-y-1.5 border-l-2 border-primary-500/20 ml-1 pl-4">
+                    <ul className="border-primary-500/20 ml-1 space-y-1.5 border-l-2 pl-4">
                       {d.responsibilities.map((task, index) => (
                         <li
                           key={index}

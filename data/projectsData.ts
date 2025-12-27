@@ -18,8 +18,17 @@ const projectsData = [
     role: 'Front-end',
     company: 'HBLab JSC',
     period: '07/2025 -- 12/2025',
-    description: ['Hệ thống luyện tập luật và lý thuyết dành cho học lái ô tô tại thị trường Nhật Bản.', 'Bao gồm 1 Admin Panel + 1 User Web + 1 User App.',],
-    responsibilities: ['Admin Panel: Xây dựng các menu (Quản lý người dùng, video, coupon, kỳ thi mô phỏng, bài kiểm tra đánh giá năng lực (quản lý pt-user và kỳ thi)).', 'User Web && User App: Xây dựng chức năng làm bài kiểm tra đánh giá năng .', 'Xây dựng ui cho các screen, update và bổ sung các component dùng chung cho toàn hệ thống.', 'Thực hiện map data từ API lên UI.', 'Fix bug + maintain + update code'],
+    description: [
+      'Hệ thống luyện tập luật và lý thuyết dành cho học lái ô tô tại thị trường Nhật Bản.',
+      'Bao gồm 1 Admin Panel + 1 User Web + 1 User App.',
+    ],
+    responsibilities: [
+      'Admin Panel: Xây dựng các menu (Quản lý người dùng, video, coupon, kỳ thi mô phỏng, bài kiểm tra đánh giá năng lực (quản lý pt-user và kỳ thi)).',
+      'User Web && User App: Xây dựng chức năng làm bài kiểm tra đánh giá năng .',
+      'Xây dựng ui cho các screen, update và bổ sung các component dùng chung cho toàn hệ thống.',
+      'Thực hiện map data từ API lên UI.',
+      'Fix bug + maintain + update code',
+    ],
     techStack: ['NextJS v13', 'Redux Toolkit', 'Ant Design', 'Tailwind'],
     teamSize: 7,
   },
@@ -36,7 +45,7 @@ const projectsData = [
       'Dựng Frontend package architecture (code base)',
       'Build common components && Dựng UI screens for các feature của System',
       'Map data từ API lên UI + Fix bug',
-      'Viết tài liệu Software Design Document + Software Requirement Specification'
+      'Viết tài liệu Software Design Document + Software Requirement Specification',
     ],
     techStack: [
       'ReactJS (v18-ts)',
