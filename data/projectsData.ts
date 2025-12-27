@@ -3,7 +3,8 @@ interface Project {
   role: string;
   company: string;
   period: string;
-  description: string[];
+  description: string[]; // Dùng để mô tả dự án đó là gì
+  responsibilities?: string[]; // <--- THÊM TRƯỜNG NÀY: Mô tả bạn đã làm gì
   techStack: string[];
   teamSize?: number;
   isCapstone?: boolean;
@@ -16,11 +17,9 @@ const projectsData = [
     title: 'Kojiro System',
     role: 'Front-end',
     company: 'HBLab JSC',
-    period: '08/2025 -- 12/2025',
-    description: [
-      'A webapp that allows users to buy clothes with full function of admin panel.',
-      'Managed team tasks and oversaw the full development lifecycle.',
-    ],
+    period: '07/2025 -- 12/2025',
+    description: ['Hệ thống luyện tập luật và lý thuyết dành cho học lái ô tô tại thị trường Nhật Bản.', 'Bao gồm 1 Admin Panel + 1 User Web + 1 User App.',],
+    responsibilities: ['Admin Panel: Xây dựng các menu (Quản lý người dùng, video, coupon, kỳ thi mô phỏng, bài kiểm tra đánh giá năng lực (quản lý pt-user và kỳ thi)).', 'User Web && User App: Xây dựng chức năng làm bài kiểm tra đánh giá năng .', 'Xây dựng ui cho các screen, update và bổ sung các component dùng chung cho toàn hệ thống.', 'Thực hiện map data từ API lên UI.', 'Fix bug + maintain + update code'],
     techStack: ['NextJS v13', 'Redux Toolkit', 'Ant Design', 'Tailwind'],
     teamSize: 7,
   },
@@ -33,9 +32,14 @@ const projectsData = [
       'Developed a web-based platform for the Student Services Office at FPT University to efficiently manage student data, including attendance, grades, applications, and academic records.',
       'Integrated AI features to identify at-risk students, enabling staff to provide timely, data-driven interventions for improved student performance and well-being.',
     ],
+    responsibilities: [
+      'Dựng Frontend package architecture (code base)',
+      'Build common components && Dựng UI screens for các feature của System',
+      'Map data từ API lên UI + Fix bug',
+      'Viết tài liệu Software Design Document + Software Requirement Specification'
+    ],
     techStack: [
-      'ReactJS v18',
-      'TypeScript',
+      'ReactJS (v18-ts)',
       'Ant Design',
       'Tailwind',
       'TanStack Query',
@@ -55,15 +59,15 @@ const projectsData = [
       'Integrated live bus tracking and route monitoring for parents.',
     ],
     techStack: [
-      'ReactJS v18',
-      'Shadcn UI',
+      'ReactJS (v18-ts)',
+      'Tailwind css',
       'TanStack Router/Query',
       'Leaflet',
       'Zod',
       'Flutter',
       'Firebase',
     ],
-    href: 'https://j2c.cc/bbus-capstone',
+    href: '',
     teamSize: 6,
   },
   {
@@ -76,7 +80,7 @@ const projectsData = [
       'Includes dashboards for roles such as admin, teacher, and supporter.',
     ],
     techStack: [
-      'ReactJS v18',
+      'ReactJS (v18-ts)',
       'ExpressJS v4',
       'Styled Components',
       'Ant Design',
@@ -96,7 +100,7 @@ const projectsData = [
     ],
     techStack: [
       'Vite',
-      'ReactJS v18 (JavaScript)',
+      'ReactJS (v18-js)',
       'ExpressJS v4',
       'MongoDB',
       'Redux Toolkit',

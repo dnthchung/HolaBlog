@@ -73,24 +73,40 @@ export default function Projects() {
               </div>
 
               <div className="px-4 py-4">
+                {/* Phần 1: Mô tả dự án (Project Overview) */}
                 <ul className="space-y-2">
-                  {Array.isArray(d.description) ? (
-                    d.description.map((desc, index) => (
-                      <li
-                        key={index}
-                        className="flex items-start gap-2 text-sm leading-relaxed text-gray-600 dark:text-gray-400"
-                      >
-                        <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-gray-300 dark:bg-gray-600" />
-                        {desc}
-                      </li>
-                    ))
-                  ) : (
-                    <li className="text-sm text-gray-600 dark:text-gray-400">
-                      {d.description}
+                  {d.description.map((desc, index) => (
+                    <li
+                      key={index}
+                      className="flex items-start gap-2 text-sm leading-relaxed text-gray-600 dark:text-gray-400"
+                    >
+                      <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-gray-300 dark:bg-gray-600" />
+                      {desc}
                     </li>
-                  )}
+                  ))}
                 </ul>
 
+                {/* Phần 2: Vai trò/Công việc cụ thể (Responsibilities) - MỚI THÊM */}
+                {d.responsibilities && d.responsibilities.length > 0 && (
+                  <div className="mt-4">
+                    <h4 className="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-500 mb-2">
+                      Key Contributions:
+                    </h4>
+                    <ul className="space-y-1.5 border-l-2 border-primary-500/20 ml-1 pl-4">
+                      {d.responsibilities.map((task, index) => (
+                        <li
+                          key={index}
+                          className="text-sm text-gray-700 dark:text-gray-300"
+                        >
+                          <span className="text-primary-500 mr-2">•</span>
+                          {task}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {/* Phần 3: Tech Stack */}
                 <div className="mt-5 flex flex-wrap gap-1.5">
                   {d.techStack.map((tech) => (
                     <span key={tech} className={getTagClassName(tech)}>
