@@ -57,7 +57,7 @@ const securityHeaders = [
 ];
 
 const output = process.env.EXPORT ? 'export' : undefined;
-const basePath = process.env.BASE_PATH || undefined;
+const basePath = process.env.BASE_PATH || '';
 const unoptimized = process.env.UNOPTIMIZED ? true : undefined;
 
 /**
@@ -68,11 +68,12 @@ export default () => {
   return plugins.reduce((acc, next) => next(acc), {
     output,
     basePath,
+    assetPrefix: basePath,
     env: {
       BASE_PATH: basePath,
     },
     reactStrictMode: true,
-    trailingSlash: false,
+    trailingSlash: true,
     pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
     eslint: {
       dirs: ['app', 'components', 'layouts', 'scripts'],
