@@ -31,11 +31,85 @@
 
 ## Cài đặt và chạy cục bộ
 
-1. Cài dependencies:
-   - Yarn: `yarn install`
-   - Hoặc npm: `npm install`
-2. Chạy dev server: `yarn dev`
-3. Mở http://localhost:3000 để xem site.
+### 1) Chuẩn bị môi trường
+
+- Node.js >= 18.x (khuyến nghị Node 20 LTS)
+- Yarn 3 (khai báo trong `packageManager`), hoặc npm/pnpm tương đương
+
+Nếu máy chưa có Yarn 3, có thể kích hoạt qua Corepack:
+
+```bash
+corepack enable
+corepack prepare yarn@stable --activate
+```
+
+### 2) Cài dependencies
+
+- Yarn:
+
+```bash
+yarn install
+```
+
+- Hoặc npm:
+
+```bash
+npm install
+```
+
+### 3) Chạy dev server
+
+- Yarn:
+
+```bash
+yarn dev
+```
+
+Sau đó mở: [http://localhost:3000](http://localhost:3000)
+
+---
+
+### Lưu ý cho Windows (PowerShell) — lỗi `Unbound variable "PWD"`
+
+Một số script/tooling trong dự án có thể tham chiếu biến `PWD` (phổ biến ở môi trường Unix). Trên **PowerShell**, biến này có thể chưa được set, gây lỗi:
+
+```
+Unbound variable "PWD"
+```
+
+Cách xử lý:
+
+**Cách A (khuyến nghị): set biến PWD cho session PowerShell hiện tại**
+Chạy lệnh sau trước khi `yarn dev`:
+
+```powershell
+$env:PWD = (Get-Location).Path
+yarn dev
+```
+
+**Cách B: chạy bằng Command Prompt (cmd)**
+Mở `cmd` tại thư mục dự án và chạy:
+
+```bat
+yarn dev
+```
+
+**Cách C: dùng Git Bash / WSL**
+Nếu bạn hay chạy các lệnh dạng `EXPORT=1 ...`, Git Bash/WSL sẽ tương thích tốt hơn:
+
+```bash
+yarn dev
+```
+
+### 4) Troubleshooting nhanh
+
+Nếu gặp lỗi lặt vặt sau khi đổi Node/Yarn hoặc cài đặt bị lệch, thử reset:
+
+```powershell
+Remove-Item -Recurse -Force node_modules, .next -ErrorAction SilentlyContinue
+yarn install
+yarn dev
+```
 
 ## Lint & format
 
@@ -53,9 +127,3 @@
 2. Thiết lập Node 18+; lệnh build: `yarn build`; output: `.next` (mặc định Next.js).
 3. Nếu có biến môi trường riêng (ví dụ API newsletter), thêm trong Vercel Project Settings.
 4. Deploy; Vercel tự chạy `yarn install` → `yarn build` → publish.
-
-## Nội dung & mở rộng
-
-- Viết bài bằng MDX trong thư mục data/blog; metadata bài viết (frontmatter) được Contentlayer đọc và build thành trang.
-- Thêm tác giả tại data/authors; thêm link điều hướng ở data/headerNavLinks.
-- Có thể tuỳ biến theme tại app/theme-providers.tsx và cấu hình SEO tại app/seo.tsx.

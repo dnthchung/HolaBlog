@@ -1,6 +1,7 @@
 import projectsData from '@/data/projectsData';
 import { genPageMetadata } from 'app/seo';
 import { getTagClassName } from '@/helpers/tag-style.helper';
+import { getCompanyColor } from '@/helpers/company-color.helper';
 
 export const metadata = genPageMetadata({ title: 'Projects' });
 
@@ -63,7 +64,9 @@ export default function Projects() {
 
                   {/* Company Info */}
                   <div className="flex items-center gap-2 rounded-md border border-gray-200 bg-white px-2.5 py-1 dark:border-gray-800 dark:bg-gray-900">
-                    <div className="h-2 w-2 animate-pulse rounded-full bg-green-500" />{' '}
+                    <div
+                      className={`h-2 w-2 animate-pulse rounded-full ${getCompanyColor(d.company)}`}
+                    />{' '}
                     {/* Status dot */}
                     <span className="text-xs font-bold text-gray-800 dark:text-gray-200">
                       {d.company}
