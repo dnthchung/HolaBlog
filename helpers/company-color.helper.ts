@@ -23,17 +23,17 @@ export const COMPANY_COLORS = [
 type CompanyColor = (typeof COMPANY_COLORS)[number];
 
 function normalizeCompanyName(input: string): string {
-  return input.trim().toLowerCase().replace(/\s+/g, ' '); // gộp nhiều space thành 1
+  return input.trim().toLowerCase().replace(/\s+/g, ' ');
 }
 
 /**
  * FNV-1a 32-bit hash: phân phối đều hơn kiểu hash*31 cho text ngắn
  */
 function fnv1a32(str: string): number {
-  let hash = 0x811c9dc5; // offset basis
+  let hash = 0x811c9dc5;
   for (let i = 0; i < str.length; i++) {
     hash ^= str.charCodeAt(i);
-    hash = Math.imul(hash, 0x01000193); // prime
+    hash = Math.imul(hash, 0x01000193);
   }
   return hash >>> 0;
 }

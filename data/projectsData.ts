@@ -10,9 +10,10 @@ interface Project {
   isCapstone?: boolean;
   href?: string;
   imgSrc?: string;
+  images?: string[]; // Mảng ảnh cho slider
 }
 
-const projectsData = [
+const projectsData: Project[] = [
   {
     title: 'Kojiro System',
     role: 'Front-end',
@@ -31,6 +32,11 @@ const projectsData = [
     ],
     techStack: ['NextJS v13', 'Redux Toolkit', 'Ant Design', 'Tailwind'],
     teamSize: 7,
+    images: [
+      'https://images.unsplash.com/photo-1551434678-e076c223a692?w=800',
+      'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800',
+      'https://images.unsplash.com/photo-1557426272-fc759fdf7a8d?w=800',
+    ],
   },
   {
     title: 'Student Care System',

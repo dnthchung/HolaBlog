@@ -109,7 +109,29 @@ export default function Projects() {
                   </div>
                 )}
 
-                {/* Phần 3: Tech Stack */}
+                {/* Phần 3: Project Images Slider */}
+                {d.images && d.images.length > 0 && (
+                  <div className="mt-6">
+                    <div className="flex gap-4">
+                      {/* Mobile: hiển thị 1 ảnh, Desktop: hiển thị 2 ảnh */}
+                      {d.images.slice(0, 2).map((img, idx) => (
+                        <div
+                          key={idx}
+                          className={`shrink-0 ${idx === 1 ? 'hidden md:block' : ''}`}
+                        >
+                          <img
+                            src={img}
+                            alt={`${d.title} screenshot ${idx + 1}`}
+                            className="h-48 w-auto rounded-lg border border-gray-200 object-cover shadow-sm transition-transform duration-300 hover:scale-[1.02] dark:border-gray-800"
+                            loading="lazy"
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Phần 4: Tech Stack */}
                 <div className="mt-5 flex flex-wrap gap-1.5">
                   {d.techStack.map((tech) => (
                     <span key={tech} className={getTagClassName(tech)}>
