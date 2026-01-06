@@ -1,0 +1,56 @@
+---
+title: Cách mình sử dụng AI
+date: '2025-12-03'
+tags: ['vi', 'ai']
+draft: true
+summary: Cách mình sử dụng AI
+---
+
+IDE : Cursor, Windsuf, Antigravity
+CLI : Codex cli, Gemini cli, Claude cli
+
+Một số thuật ngữ
+
+- MCP
+- LLM
+- Agent
+- Claude skill
+- Dùng cursor thì có cái gọi là "script "
+
+Khi sử dụng
+
+1. IDE Ai
+   Ví dụ sử dụng cursor
+
+- có bộ những file rule
+- có bộ những file "script" (- danh sách các step mà cần để làm 1 công việc)
+- ví dụ :
+
+  - 1 dự án có nhiều features
+  - đối với feature A và feature B đều có các màn hình : màn hình list, màn hình detail, ...
+  - chúng ta sẽ có
+
+    - 1. file script chung vdu : create-screen.mdc
+      - để tạo ra kịch bản để tạo các màn hình ví dụ là bước 1 cần chạy lệnh nào, bước 2 cần cài đặt gì vân vân
+      - khi dùng thì ở phần chat : create-screen.mdc {"tên màn hình", "các biến dùng bên trong nó,..."}
+    - 2. Còn nếu mà 2 màn hình ví dụ, chúng có các công việc như
+         Screen List A
+
+      - Create title
+      - create table
+
+      Screen List B
+
+      - Create title
+      - create List
+        => create title sẽ là công việc chung
+        => còn ví dụ nếu như dùng claude thì có 1 cái gọi là "claude skill" => mình sẽ dùng "skill" để tạo cái việc khác nhau này (ý tưởng là thế)
+
+    - Khi mà giả sử khi Ai sử dụng context, skil, script chúng ta config để code 1 màn hình A mà có 1 cái lỗi gọi là lỗi A.
+      Sau khi chúng ta fix lỗi A xong, khi code màn B , con Ai lại lỗi, thì để tránh cái lỗi này, chúng ta cần kiểu thay vì gom hết các context lại 1 chỗ
+      thì chúng ta sẽ làm 1 cái folder kiểu dùng để define các lỗi (dự định sẽ gặp hoặc đã gặp), nhưng chúng ta cũng cần 1 cái giống như menu,
+      để khi con Ai gặp lỗi A, nó sẽ : Gặp lỗi => đọc menu => tìm đến file đề cập đến lỗi A => tìm ra cách khắc phục lỗi A => giải quyết
+      => tức là chúng ta cần 1 cái để dẫn đường và cái dẫn đường này cũng nên import, có mặt trong script hoặc skill.
+    - Nguyên nhân :
+      1. Nếu như gom tất cả các vấn đề vào 1 file context thì lượng token mà con ai đọc sẽ rất lớn , dễ out
+      2. kể cả có chia nhỏ ra cũng phải có menu để tránh con ai phải đi dò dò từng file 1, chả khác chó gì việc
