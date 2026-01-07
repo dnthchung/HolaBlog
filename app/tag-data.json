@@ -1,10 +1,17 @@
 {
   "git": 1,
   "working": 1,
-  "vi": 2,
+  "vi": 5,
   "workflow": 1,
-  "code": 1,
+  "ai": 1,
+  "code": 2,
+  "university": 2,
+  "guide": 1,
+  "life": 1,
   "multi-author": 1,
   "next-js": 1,
-  "feature": 1
+  "feature": 1,
+  "holiday": 1,
+  "canada": 1,
+  "images": 1
 }
