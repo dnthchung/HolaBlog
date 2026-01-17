@@ -1,14 +1,21 @@
+interface ProjectImage {
+  src: string;
+  alt: string;
+  caption?: string;
+}
 interface Project {
   title: string;
   role: string;
   company: string;
   period: string;
-  description: string[]; // Dùng để mô tả dự án đó là gì
-  responsibilities?: string[]; // <--- THÊM TRƯỜNG NÀY: Mô tả bạn đã làm gì
+  description: string[];
+  responsibilities?: string[];
   techStack: string[];
   teamSize?: number;
   isCapstone?: boolean;
   href?: string;
+  images?: ProjectImage[]; // Thêm field mới
+  galleryLayout?: 'masonry' | 'grid' | 'carousel'; // Layout preference
 }
 
 const projectsData: Project[] = [
@@ -30,6 +37,19 @@ const projectsData: Project[] = [
     ],
     techStack: ['NextJS v13', 'Redux Toolkit', 'Ant Design', 'Tailwind'],
     teamSize: 7,
+    images: [
+      {
+        src: '/static/images/kojiro/HB1_1518.jpg',
+        alt: 'Kojiro Admin Dashboard',
+        caption: 'Admin Panel - User Management Interface',
+      },
+      {
+        src: '/static/images/kojiro/ocean.jpeg',
+        alt: 'Kojiro UI detail',
+        caption: 'User App - Practice Test Screen',
+      },
+    ],
+    galleryLayout: 'carousel', // hoặc 'grid' hoặc 'carousel', 'masonry'
   },
   {
     title: 'Student Care System',

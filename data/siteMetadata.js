@@ -12,7 +12,6 @@ const siteMetadata = {
   socialBanner: `${process.env.BASE_PATH || ''}/static/images/twitter-card.png`,
   email: 'chungdt03.work@gmail.com',
   github: 'https://github.com/dnthchung',
-  x: 'https://twitter.com/x',
   youtube: 'https://www.youtube.com/@dnthchung',
   linkedin: 'https://www.linkedin.com/in/chungdt03/',
   locale: ['en-US', 'vi-VN'],

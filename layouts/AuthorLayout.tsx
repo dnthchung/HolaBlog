@@ -15,7 +15,6 @@ export default function AuthorLayout({ children, content }: Props) {
     occupation,
     company,
     email,
-    twitter,
     bluesky,
     linkedin,
     github,
@@ -91,7 +90,6 @@ export default function AuthorLayout({ children, content }: Props) {
               <div className="mt-6 flex flex-wrap justify-center gap-3 lg:justify-start">
                 <SocialIcon kind="github" href={github} size={6} />
                 <SocialIcon kind="linkedin" href={linkedin} size={6} />
-                <SocialIcon kind="x" href={twitter} size={6} />
                 <SocialIcon kind="bluesky" href={bluesky} size={6} />
                 <SocialIcon kind="mail" href={`mailto:${email}`} size={6} />
               </div>

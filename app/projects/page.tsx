@@ -2,6 +2,8 @@ import projectsData from '@/data/projectsData';
 import { genPageMetadata } from 'app/seo';
 import { getTagClassName } from '@/helpers/tag-style.helper';
 import { getCompanyColor } from '@/helpers/company-color.helper';
+import Link from '@/components/Link';
+import ProjectGallery from '@/components/ProjectGallery';
 
 export const metadata = genPageMetadata({ title: 'Projects' });
 
@@ -25,7 +27,7 @@ export default function Projects() {
               <span className="group-hover:bg-primary-500 h-1.5 w-1.5 rounded-full bg-gray-400 transition-colors"></span>
             </span>
 
-            {/* Mốc thời gian nổi bật (GitHub Label Style) */}
+            {/* Mốc thời gian */}
             <div className="mb-3 inline-flex items-center rounded-md border border-gray-200 bg-gray-50 px-2 py-0.5 font-mono text-xs font-bold tracking-tight text-gray-700 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300">
               <svg
                 className="mr-1.5 h-3 w-3 text-gray-400"
@@ -44,11 +46,21 @@ export default function Projects() {
             </div>
 
             <div className="overflow-hidden rounded-lg border border-gray-200 bg-white transition-shadow hover:shadow-md dark:border-gray-800 dark:bg-gray-950">
+              {/* Header */}
               <div className="border-b border-gray-100 bg-gray-50/30 px-4 py-3 dark:border-gray-800 dark:bg-gray-900/20">
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <div>
                     <h3 className="text-base font-bold text-gray-900 dark:text-gray-100">
-                      {d.title}
+                      {d.href ? (
+                        <Link
+                          href={d.href}
+                          className="hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                        >
+                          {d.title}
+                        </Link>
+                      ) : (
+                        d.title
+                      )}
                     </h3>
                     <div className="mt-0.5 flex items-center gap-2">
                       <span className="text-primary-600 dark:text-primary-400 text-sm font-medium">
@@ -66,8 +78,7 @@ export default function Projects() {
                   <div className="flex items-center gap-2 rounded-md border border-gray-200 bg-white px-2.5 py-1 dark:border-gray-800 dark:bg-gray-900">
                     <div
                       className={`h-2 w-2 animate-pulse rounded-full ${getCompanyColor(d.company)}`}
-                    />{' '}
-                    {/* Status dot */}
+                    />
                     <span className="text-xs font-bold text-gray-800 dark:text-gray-200">
                       {d.company}
                     </span>
@@ -75,8 +86,18 @@ export default function Projects() {
                 </div>
               </div>
 
+              {/* Content */}
               <div className="px-4 py-4">
-                {/* Phần 1: Mô tả dự án (Project Overview) */}
+                {/* Tech Stack */}
+                <div className="mb-2 flex flex-wrap gap-1.5">
+                  {d.techStack.map((tech) => (
+                    <span key={tech} className={getTagClassName(tech)}>
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Project Overview */}
                 <ul className="space-y-2">
                   {d.description.map((desc, index) => (
                     <li
@@ -89,7 +110,7 @@ export default function Projects() {
                   ))}
                 </ul>
 
-                {/* Phần 2: Vai trò/Công việc cụ thể (Responsibilities) - MỚI THÊM */}
+                {/* Responsibilities */}
                 {d.responsibilities && d.responsibilities.length > 0 && (
                   <div className="mt-4">
                     <h4 className="mb-2 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-500">
@@ -109,14 +130,31 @@ export default function Projects() {
                   </div>
                 )}
 
-                {/* Tech Stack */}
-                <div className="mt-5 flex flex-wrap gap-1.5">
-                  {d.techStack.map((tech) => (
-                    <span key={tech} className={getTagClassName(tech)}>
-                      {tech}
-                    </span>
-                  ))}
-                </div>
+                {/* Project Images */}
+                {d.images && d.images.length > 0 && (
+                  <div className="mt-5">
+                    <h4 className="mb-3 flex items-center gap-2 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-500">
+                      <svg
+                        className="h-4 w-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                        />
+                      </svg>
+                      Project Gallery
+                    </h4>
+                    <ProjectGallery
+                      images={d.images}
+                      layout={d.galleryLayout || 'masonry'}
+                    />
+                  </div>
+                )}
               </div>
             </div>
           </div>
