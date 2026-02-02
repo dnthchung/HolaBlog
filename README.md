@@ -2,7 +2,7 @@
 
 ## Tổng quan
 
-- Blog cá nhân dựng trên Next.js 15 (App Router) với MDX/Contentlayer để quản lý nội dung dạng file, tối ưu cho SEO và tốc độ tải.
+- Blog cá nhân (đúng hơn là trang note cá nhân của t) dựng trên Next.js 15 (App Router) với MDX/Contentlayer để quản lý nội dung dạng file, tối ưu cho SEO và tốc độ tải.
 - Giao diện Tailwind CSS 4, hỗ trợ dark/light mode, responsive trên desktop và mobile.
 - Tích hợp hệ thống thẻ, phân trang, RSS, sitemap, và bình luận (Pliny/Contentlayer pipeline).
 - Cấu hình sẵn lint/format (ESLint, Prettier, Husky + lint-staged) để giữ chất lượng mã nguồn.
@@ -120,10 +120,3 @@ yarn dev
 
 - Build: `yarn build` (bao gồm bước postbuild tạo RSS/sitemap qua scripts/postbuild.mjs).
 - Serve bản build: `yarn serve`.
-
-## Triển khai (gợi ý Vercel)
-
-1. Kết nối repo với Vercel, chọn framework Next.js.
-2. Thiết lập Node 18+; lệnh build: `yarn build`; output: `.next` (mặc định Next.js).
-3. Nếu có biến môi trường riêng (ví dụ API newsletter), thêm trong Vercel Project Settings.
-4. Deploy; Vercel tự chạy `yarn install` → `yarn build` → publish.
