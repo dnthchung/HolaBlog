@@ -1,3 +1,17 @@
+interface TechStack {
+  Architecture?: string;
+  Backend?: string;
+  Frontend?: string;
+  Database?: string;
+  Infrastructure?: string;
+  Messaging?: string;
+  'Real-time'?: string;
+  Cloud?: string;
+  Patterns?: string;
+  'ORM / ODM'?: string;
+  DevOps?: string;
+}
+
 interface Project {
   title: string;
   role: string;
@@ -5,7 +19,7 @@ interface Project {
   period: string;
   description: string[]; // Dùng để mô tả dự án đó là gì
   responsibilities?: string[]; // <--- THÊM TRƯỜNG NÀY: Mô tả bạn đã làm gì
-  techStack: string[];
+  techStack: TechStack;
   teamSize?: number;
   isCapstone?: boolean;
   href?: string;
@@ -28,22 +42,15 @@ const projectsData: Project[] = [
       'Implemented order calculation logic using different strategies based on sales data.',
       'Built Stock Adjustment APIs with event-driven processing and Redis caching.',
     ],
-    techStack: [
-      'Java 17',
-      'Spring Boot 3.2',
-      'Spring Security (JWT, RBAC)',
-      'Spring Data JPA',
-      'Hibernate',
-      'PostgreSQL 15',
-      'Flyway',
-      'Redis (ElastiCache)',
-      'AWS Fargate',
-      'Lambda (Python)',
-      'RDS',
-      'S3',
-      'CloudWatch',
-      'GitHub Actions',
-    ],
+    techStack: {
+      Architecture: 'Modular Monolith, Layered Architecture, DDD-lite',
+      Backend:
+        'Java 17, Spring Boot 3.2, Spring Security (JWT, RBAC), Spring Data JPA, Hibernate',
+      Database: 'PostgreSQL 15, Flyway, Redis (ElastiCache)',
+      Infrastructure:
+        'AWS Fargate, Lambda (Python batch jobs), RDS, S3, CloudWatch, GitHub Actions',
+      Patterns: 'Repository, Event-driven (Spring Events), Outbox Pattern',
+    },
     teamSize: 7,
   },
   {
@@ -63,21 +70,14 @@ const projectsData: Project[] = [
       'Implemented Kafka producers and consumers for events: user registration and exam completion.',
       'Added Redis caching for frequently accessed categories and questions to reduce database load.',
     ],
-    techStack: [
-      'Java 17',
-      'Spring Boot 3.2',
-      'Node.js',
-      'ExpressJS',
-      'PostgreSQL',
-      'MongoDB',
-      'Redis',
-      'Apache Kafka',
-      'RabbitMQ',
-      'Docker',
-      'Kubernetes',
-      'GitHub Actions',
-      'GCP',
-    ],
+    techStack: {
+      Architecture:
+        'Microservices, Event-Driven, Clean Architecture, BFF pattern, CQRS',
+      Backend: 'Java 17 (Spring Boot 3.2), Node.js (ExpressJS)',
+      Database: 'PostgreSQL, MongoDB, Redis',
+      Messaging: 'Apache Kafka, RabbitMQ',
+      DevOps: 'Docker, Kubernetes, GitHub Actions, GCP',
+    },
     teamSize: 9,
   },
   {
@@ -99,26 +99,18 @@ const projectsData: Project[] = [
       'Frontend Development (Full Admin Web): Built the entire Admin Web Portal from scratch, using React 19 and TypeScript, featuring 14 modules and 45+ type-safe routes.',
       'Implemented real-time dashboards with Google Maps/Leaflet integration and state management using Zustand and TanStack Query.',
     ],
-    techStack: [
-      'Java 17',
-      'Spring Boot 3.3.5',
-      'Spring Security (JWT, RBAC)',
-      'Spring Data JPA',
-      'Hibernate',
-      'WebSocket',
-      'React 19',
-      'TypeScript 5.7',
-      'Vite 6',
-      'TanStack Router/Query',
-      'Zustand',
-      'Radix UI',
-      'Tailwind CSS',
-      'PostgreSQL 15',
-      'MQTT',
-      'Firebase Cloud Messaging',
-      'AWS S3',
-      'SendGrid',
-    ],
+    techStack: {
+      Architecture:
+        'Monolithic Backend, Component-Driven Frontend, Clean Architecture Mobile',
+      Backend:
+        'Java 17, Spring Boot 3.3.5, Spring Security (JWT, RBAC), Spring Data JPA, Hibernate, WebSocket',
+      Frontend:
+        'React 19, TypeScript 5.7, Vite 6, TanStack Router/Query, Zustand, Radix UI, Tailwind CSS',
+      Database: 'PostgreSQL 15 (24 entities with complex relationships)',
+      'Real-time':
+        'WebSocket (bi-directional messaging), MQTT (GPS tracking), Firebase Cloud Messaging',
+      Cloud: 'AWS S3 (file storage), SendGrid (email), Firebase (FCM)',
+    },
     href: 'https://j2c.cc/bbus-capstone',
     isCapstone: true,
   },
@@ -178,13 +170,11 @@ const projectsData: Project[] = [
       'An online platform that helps users practice German through exercises and vocabulary learning via flashcards.',
       'Includes dashboards for roles such as admin, teacher, and supporter.',
     ],
-    techStack: [
-      'ReactJS (v18-ts)',
-      'ExpressJS v4',
-      'Styled Components',
-      'Ant Design',
-      'Redux Toolkit',
-    ],
+    techStack: {
+      Frontend:
+        'ReactJS (v18-ts), Styled Components, Ant Design, Redux Toolkit',
+      Backend: 'ExpressJS v4',
+    },
     href: 'https://j2c.cc/RDS_DeutschNerd',
     teamSize: 5,
   },
@@ -197,14 +187,11 @@ const projectsData: Project[] = [
       'A webapp that allows users to buy clothes with full function of admin panel.',
       'Managed team tasks and oversaw the full development lifecycle.',
     ],
-    techStack: [
-      'Vite',
-      'ReactJS (v18-js)',
-      'ExpressJS v4',
-      'MongoDB',
-      'Redux Toolkit',
-      'Shadcn UI',
-    ],
+    techStack: {
+      Frontend: 'ReactJS (v18-js), Vite, Shadcn UI, Redux Toolkit',
+      Backend: 'ExpressJS v4',
+      Database: 'MongoDB',
+    },
     href: 'https://github.com/dnthchung/HolaWear',
     teamSize: 5,
   },
@@ -217,14 +204,11 @@ const projectsData: Project[] = [
       'A web-based platform for managing insurance contracts.',
       'Features user registration and role-specific dashboards for sales representatives and administrators.',
     ],
-    techStack: [
-      'Java JDBC',
-      'Servlet',
-      'SQL Server',
-      'Tomcat 10',
-      'Bootstrap',
-      'JSP',
-    ],
+    techStack: {
+      Backend: 'Java JDBC, Servlet, Tomcat 10',
+      Frontend: 'JSP, Bootstrap',
+      Database: 'SQL Server',
+    },
     href: 'https://j2c.cc/Group5-InsuranceManageSystem',
     teamSize: 5,
   },

@@ -109,13 +109,25 @@ export default function Projects() {
                   </div>
                 )}
 
-                {/* Tech Stack */}
-                <div className="mt-5 flex flex-wrap gap-1.5">
-                  {d.techStack.map((tech) => (
-                    <span key={tech} className={getTagClassName(tech)}>
-                      {tech}
-                    </span>
-                  ))}
+                {/* Tech Stack - Categorized */}
+                <div className="mt-4">
+                  <h4 className="mb-2 text-xs font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-500">
+                    Technical:
+                  </h4>
+                  <div className="border-primary-500/20 ml-1 space-y-1.5 border-l-2 pl-4">
+                    {Object.entries(d.techStack).map(
+                      ([category, technologies]) => (
+                        <div key={category} className="flex gap-3 text-sm">
+                          <span className="min-w-[110px] font-bold text-gray-900 dark:text-gray-100">
+                            {category}
+                          </span>
+                          <span className="text-gray-700 dark:text-gray-300">
+                            {technologies}
+                          </span>
+                        </div>
+                      ),
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
