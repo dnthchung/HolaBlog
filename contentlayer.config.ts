@@ -176,6 +176,16 @@ export const Authors = defineDocumentType(() => ({
     linkedin: { type: 'string' },
     github: { type: 'string' },
     layout: { type: 'string' },
+    // Education list
+    education: {
+      type: 'list',
+      of: { type: 'json' },
+    },
+    // Career / Work Experience list
+    career: {
+      type: 'list',
+      of: { type: 'json' },
+    },
   },
   computedFields,
 }));

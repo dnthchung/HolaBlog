@@ -8,6 +8,30 @@ interface Props {
   content: Omit<Authors, '_id' | '_raw' | 'body'>;
 }
 
+// Type definitions for achievements, education and career
+interface Achievement {
+  text: string;
+  link?: string;
+  linkText?: string;
+}
+
+interface Education {
+  school: string;
+  degree: string;
+  gpa: string;
+  period: string;
+  achievements: Achievement[];
+}
+
+interface Career {
+  company: string;
+  position: string;
+  type: string;
+  period: string;
+  location: string;
+  current: boolean;
+}
+
 export default function AuthorLayout({ children, content }: Props) {
   const {
     name,
@@ -15,11 +39,15 @@ export default function AuthorLayout({ children, content }: Props) {
     occupation,
     company,
     email,
-    twitter,
     bluesky,
     linkedin,
     github,
-  } = content;
+    education,
+    career,
+  } = content as Omit<Authors, '_id' | '_raw' | 'body'> & {
+    education?: Education[];
+    career?: Career[];
+  };
 
   return (
     <div className="mx-auto max-w-6xl px-4 sm:px-6">
@@ -91,7 +119,6 @@ export default function AuthorLayout({ children, content }: Props) {
               <div className="mt-6 flex flex-wrap justify-center gap-3 lg:justify-start">
                 <SocialIcon kind="github" href={github} size={6} />
                 <SocialIcon kind="linkedin" href={linkedin} size={6} />
-                <SocialIcon kind="x" href={twitter} size={6} />
                 <SocialIcon kind="bluesky" href={bluesky} size={6} />
                 <SocialIcon kind="mail" href={`mailto:${email}`} size={6} />
               </div>
@@ -113,6 +140,186 @@ export default function AuthorLayout({ children, content }: Props) {
           </div>
         </main>
       </div>
+
+      {/* Education & Career Section - Split 50/50 */}
+      {(education || career) && (
+        <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2">
+          {/* Education Section */}
+          {education && education.length > 0 && (
+            <div className="overflow-hidden rounded-lg border border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-950">
+              <div className="border-b border-gray-100 bg-gray-50/50 px-6 py-3 dark:border-gray-800 dark:bg-gray-900/30">
+                <div className="flex items-center gap-2">
+                  <svg
+                    className="h-4 w-4 text-gray-500"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 14l9-5-9-5-9 5 9 5z"
+                    />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"
+                    />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"
+                    />
+                  </svg>
+                  <span className="text-xs font-bold tracking-widest text-gray-400 uppercase">
+                    Education
+                  </span>
+                </div>
+              </div>
+              <div className="px-6 py-4">
+                {education.map((edu, index) => (
+                  <div
+                    key={index}
+                    className={`${index > 0 ? 'mt-4 border-t border-gray-100 pt-4 dark:border-gray-800' : ''}`}
+                  >
+                    <div className="flex items-start justify-between">
+                      <div>
+                        <h3 className="font-semibold text-gray-900 dark:text-gray-100">
+                          {edu.school}
+                        </h3>
+                        <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                          {edu.degree}
+                        </p>
+                      </div>
+                      <span className="rounded-full bg-blue-100 px-2 py-1 text-xs font-medium text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">
+                        GPA: {edu.gpa}
+                      </span>
+                    </div>
+                    <p className="mt-2 text-xs text-gray-500 dark:text-gray-500">
+                      {edu.period}
+                    </p>
+                    {edu.achievements && edu.achievements.length > 0 && (
+                      <ul className="mt-3 space-y-1 text-sm text-gray-600 dark:text-gray-400">
+                        {edu.achievements.map((achievement, achIndex) => (
+                          <li key={achIndex} className="flex items-start gap-2">
+                            <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-gray-400 dark:bg-gray-500" />
+                            <span>
+                              {achievement.text}
+                              {achievement.link && (
+                                <a
+                                  href={achievement.link}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="ml-1 text-blue-600 hover:text-blue-700 hover:underline dark:text-blue-400 dark:hover:text-blue-300"
+                                >
+                                  {achievement.linkText || '[link]'}
+                                </a>
+                              )}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Career Section */}
+          {career && career.length > 0 && (
+            <div className="overflow-hidden rounded-lg border border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-950">
+              <div className="border-b border-gray-100 bg-gray-50/50 px-6 py-3 dark:border-gray-800 dark:bg-gray-900/30">
+                <div className="flex items-center gap-2">
+                  <svg
+                    className="h-4 w-4 text-gray-500"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                    />
+                  </svg>
+                  <span className="text-xs font-bold tracking-widest text-gray-400 uppercase">
+                    Work Experience
+                  </span>
+                </div>
+              </div>
+              <div className="px-6 py-4">
+                {career.map((job, index) => (
+                  <div
+                    key={index}
+                    className={`${index > 0 ? 'mt-4 border-t border-gray-100 pt-4 dark:border-gray-800' : ''}`}
+                  >
+                    <div className="flex items-start justify-between">
+                      <div className="flex items-center gap-2">
+                        <h3 className="font-semibold text-gray-900 dark:text-gray-100">
+                          {job.company}
+                        </h3>
+                        {job.current && (
+                          <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700 dark:bg-green-900/30 dark:text-green-400">
+                            Current
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                      {job.position} • {job.type}
+                    </p>
+                    <div className="mt-2 flex items-center gap-3 text-xs text-gray-500 dark:text-gray-500">
+                      <span className="flex items-center gap-1">
+                        <svg
+                          className="h-3 w-3"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                          />
+                        </svg>
+                        {job.period}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <svg
+                          className="h-3 w-3"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                          />
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                          />
+                        </svg>
+                        {job.location}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }
