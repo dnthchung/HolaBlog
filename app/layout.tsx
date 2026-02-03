@@ -119,10 +119,10 @@ export default function RootLayout({
           <Analytics
             analyticsConfig={siteMetadata.analytics as AnalyticsConfig}
           />
-          <SectionContainer>
+          <SectionContainer className="flex min-h-screen flex-col">
             <SearchProvider>
               <Header />
-              <main className="mb-auto">{children}</main>
+              <main className="flex-grow">{children}</main>
             </SearchProvider>
             <Footer />
           </SectionContainer>

@@ -40,6 +40,8 @@ export default function AuthorLayout({ children, content }: Props) {
     occupation,
     company,
     email,
+    phone,
+    location,
     bluesky,
     linkedin,
     github,
@@ -48,6 +50,8 @@ export default function AuthorLayout({ children, content }: Props) {
   } = content as Omit<Authors, '_id' | '_raw' | 'body'> & {
     education?: Education[];
     career?: Career[];
+    phone?: string;
+    location?: string;
   };
 
   return (
@@ -62,18 +66,18 @@ export default function AuthorLayout({ children, content }: Props) {
       <div className="grid grid-cols-1 gap-x-8 gap-y-8 lg:grid-cols-4">
         {/* Sidebar: Profile Info (GitHub Style) */}
         <aside className="lg:col-span-1">
-          <div className="flex flex-col items-center lg:items-center">
+          <div className="flex flex-col items-center lg:items-start">
             {avatar && (
               <Image
                 src={avatar}
                 alt="avatar"
                 width={192}
                 height={192}
-                className="h-48 w-48 rounded-full"
+                className="h-48 w-48 rounded-full border border-gray-200 dark:border-gray-800"
                 priority
               />
             )}
-            <div className="mt-4 text-center lg:text-left">
+            <div className="mt-4 w-full text-center lg:text-left">
               <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
                 {name}
               </h2>
@@ -82,6 +86,7 @@ export default function AuthorLayout({ children, content }: Props) {
               </p>
 
               <div className="mt-4 flex flex-col gap-2 border-t border-gray-100 pt-4 dark:border-gray-800">
+                {/* Company */}
                 <div className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
                   <svg
                     className="h-4 w-4 opacity-60"
@@ -98,6 +103,54 @@ export default function AuthorLayout({ children, content }: Props) {
                   </svg>
                   {company}
                 </div>
+
+                {/* Location */}
+                {location && (
+                  <div className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
+                    <svg
+                      className="h-4 w-4 opacity-60"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                      />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                      />
+                    </svg>
+                    {location}
+                  </div>
+                )}
+
+                {/* Phone */}
+                {phone && (
+                  <div className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
+                    <svg
+                      className="h-4 w-4 opacity-60"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                      />
+                    </svg>
+                    {phone}
+                  </div>
+                )}
+
+                {/* Email */}
                 <div className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
                   <svg
                     className="h-4 w-4 opacity-60"
@@ -112,7 +165,12 @@ export default function AuthorLayout({ children, content }: Props) {
                       d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                     />
                   </svg>
-                  {email}
+                  <a
+                    href={`mailto:${email}`}
+                    className="underline-offset-4 hover:text-blue-600 hover:underline dark:hover:text-blue-400"
+                  >
+                    {email}
+                  </a>
                 </div>
               </div>
 
