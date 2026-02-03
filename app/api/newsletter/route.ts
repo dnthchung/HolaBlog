@@ -1,11 +1,17 @@
-import { NewsletterAPI } from 'pliny/newsletter';
-import siteMetadata from '@/data/siteMetadata';
+// TODO: Newsletter API - Disabled for static export (GitHub Pages)
+// Uncomment when deploying to Vercel/Netlify with serverless support
+// See note.md for details
 
-export const dynamic = 'force-static';
+// import { NewsletterAPI } from 'pliny/newsletter';
+// import siteMetadata from '@/data/siteMetadata';
 
-const handler = NewsletterAPI({
-  // @ts-ignore
-  provider: siteMetadata.newsletter.provider,
-});
+// export const dynamic = 'force-static';
 
-export { handler as GET, handler as POST };
+// const handler = NewsletterAPI({
+//   // @ts-ignore
+//   provider: siteMetadata.newsletter.provider,
+// });
+
+// export { handler as GET, handler as POST };
+
+export {};
