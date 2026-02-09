@@ -38,31 +38,58 @@ function Lightbox({
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm"
-      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Image Lightbox"
     >
+      {/* Backdrop button to close on click outside */}
+      <button
+        onClick={onClose}
+        className="absolute inset-0 h-full w-full cursor-default"
+        aria-label="Close lightbox"
+        tabIndex={-1}
+      />
+
       {/* Close button */}
       <button
         onClick={onClose}
         className="absolute top-4 right-4 z-10 rounded-full bg-white/10 p-2 text-white transition-colors hover:bg-white/20"
         aria-label="Close lightbox"
       >
-        <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+        <svg
+          className="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M6 18L18 6M6 6l12 12"
+          />
         </svg>
       </button>
 
       {/* Previous button */}
       {hasPrev && (
         <button
-          onClick={(e) => {
-            e.stopPropagation();
-            onPrev();
-          }}
+          onClick={onPrev}
           className="absolute left-4 z-10 rounded-full bg-white/10 p-3 text-white transition-colors hover:bg-white/20"
           aria-label="Previous photo"
         >
-          <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          <svg
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15 19l-7-7 7-7"
+            />
           </svg>
         </button>
       )}
@@ -70,24 +97,28 @@ function Lightbox({
       {/* Next button */}
       {hasNext && (
         <button
-          onClick={(e) => {
-            e.stopPropagation();
-            onNext();
-          }}
+          onClick={onNext}
           className="absolute right-4 z-10 rounded-full bg-white/10 p-3 text-white transition-colors hover:bg-white/20"
           aria-label="Next photo"
         >
-          <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          <svg
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M9 5l7 7-7 7"
+            />
           </svg>
         </button>
       )}
 
       {/* Image container */}
-      <div
-        className="relative max-h-[90vh] max-w-[90vw]"
-        onClick={(e) => e.stopPropagation()}
-      >
+      <div className="relative z-10 max-h-[90vh] max-w-[90vw]">
         <Image
           src={photo.src}
           alt={photo.alt}
@@ -98,7 +129,7 @@ function Lightbox({
         />
         {/* Caption */}
         {(photo.caption || photo.date) && (
-          <div className="absolute bottom-0 left-0 right-0 rounded-b-lg bg-gradient-to-t from-black/80 to-transparent p-4">
+          <div className="absolute right-0 bottom-0 left-0 rounded-b-lg bg-gradient-to-t from-black/80 to-transparent p-4">
             {photo.caption && (
               <p className="text-center text-white">{photo.caption}</p>
             )}
@@ -123,7 +154,16 @@ function GalleryCard({
   return (
     <div
       onClick={onClick}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onClick();
+        }
+      }}
+      role="button"
+      tabIndex={0}
       className="group relative cursor-pointer overflow-hidden rounded-lg bg-gray-100 transition-all duration-300 hover:shadow-xl dark:bg-gray-800"
+      aria-label={`View photo: ${photo.caption || 'Memory'}`}
     >
       <div className="aspect-[4/3] w-full">
         <Image
@@ -140,9 +180,7 @@ function GalleryCard({
           {photo.caption && (
             <p className="text-sm font-medium text-white">{photo.caption}</p>
           )}
-          {photo.date && (
-            <p className="text-xs text-white/80">{photo.date}</p>
-          )}
+          {photo.date && <p className="text-xs text-white/80">{photo.date}</p>}
         </div>
       </div>
       {/* Tags badges */}
@@ -198,7 +236,10 @@ export default function MemoriesPage() {
   const [filter, setFilter] = useState<string>('all');
 
   // Collect all unique tags
-  const allTags = ['all', ...new Set(memoriesData.flatMap((p) => p.tags || []))];
+  const allTags = [
+    'all',
+    ...new Set(memoriesData.flatMap((p) => p.tags || [])),
+  ];
 
   const filteredPhotos =
     filter === 'all'
