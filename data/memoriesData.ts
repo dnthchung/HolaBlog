@@ -8,41 +8,34 @@ export interface MemoryPhoto {
 
 const memoriesData: MemoryPhoto[] = [
   {
-    src: '/static/images/memories/lake.jpg',
-    alt: 'Lake scenery',
-    caption: 'Peaceful lake view',
-    tags: ['personal'],
-  },
-  {
-    src: '/static/images/memories/maple.jpg',
-    alt: 'Maple leaves',
-    caption: 'Autumn maple leaves',
-    tags: ['personal'],
-  },
-  {
-    src: '/static/images/memories/mountains.jpg',
-    alt: 'Mountain landscape',
-    caption: 'Mountain adventure',
-    tags: ['personal'],
-  },
-  {
-    src: '/static/images/memories/toronto.jpg',
-    alt: 'Toronto cityscape',
-    caption: 'Toronto skyline',
-    tags: ['personal'],
-  },
-  {
     src: '/static/images/memories/DSCF7974.JPG',
-    alt: 'Consignment Order',
-    caption: 'Consignment Order',
+    alt: 'HeadQuarte Order',
+    caption: 'HQ Order Team',
     tags: ['hblab'],
   },
   {
     src: '/static/images/memories/CSS2026-01 (1).jpg',
     alt: 'Kojiro 803',
-    caption: 'Kojiro 803',
+    caption: 'KJ Team',
+    tags: ['hblab'],
+  },
+  {
+    src: '/static/images/memories/MEDIART-00202.jpg',
+    alt: 'AE HB1',
+    caption: 'AE HB1',
+    tags: ['hblab'],
+  },
+  {
+    src: '/static/images/memories/MEDIART-00263.jpg',
+    alt: 'YEP2025',
+    caption: 'YEP2025 HB1',
+    tags: ['hblab'],
+  },
+  {
+    src: '/static/images/memories/YEP-HB1-TEAM.jpeg',
+    alt: 'YEP2025-HB1-Team',
+    caption: 'YEP2025 bộ phận HB1',
     tags: ['hblab'],
   },
 ];
-
 export default memoriesData;
