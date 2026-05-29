@@ -1,4 +1,5 @@
 interface TechStack {
+  Tech?: string;
   Architecture?: string;
   Backend?: string;
   Frontend?: string;
@@ -27,142 +28,118 @@ interface Project {
 
 const projectsData: Project[] = [
   {
-    title: 'YD Project',
-    role: 'Back-end Developer',
+    title: 'PSMS',
+    role: 'Frontend Developer',
     company: 'HBLab JSC',
-    period: '10/2025 -- now',
+    period: '02/2026 -- now',
     description: [
-      'Automatic Supplies Ordering System.',
-      'Implemented backend services for automated inventory and order processing systems serving 500+ stores.',
-      'It generates orders based on sales and inventory data to reduce stock shortages and manual operations.',
+      'Warehouse outbound management system for marketing material distribution, including picking, packing, scan-based verification, shipment completion, labeling, and Excel/FTP integration.',
+      'Built for a Japanese client.',
     ],
     responsibilities: [
-      'Developed REST APIs for Supplies Master with pagination, validation, and RBAC.',
-      'Implemented inventory configuration features (order thresholds, schedules, store groups) that control when and how orders are generated.',
-      'Implemented order calculation logic using different strategies based on sales data.',
-      'Built Stock Adjustment APIs with event-driven processing and Redis caching.',
+      "Built all 10 master-data CRUD modules (areas, centers, clients, materials, operators, patterns, stores, users, roles, deliveries) on Next.js 16 App Router using the team's shared Atomic Design + shadcn/ui component library.",
+      'Authored Zod schemas and React Hook Form forms for each master entity, plus shared filter, sort, pagination, and URL-query-state patterns across list screens.',
+      'Contributed UI components and fixes to the Plan import module (Excel preview with center x material matrix) owned by senior teammates.',
+      "Used Claude as an AI pair-programming agent for Figma to React component generation, code review and refactor suggestions, and cross-checking implementations against BA's Basic Design documents.",
     ],
     techStack: {
-      Architecture: 'Modular Monolith, Layered Architecture, DDD-lite',
-      Backend:
-        'Java 17, Spring Boot 3.2, Spring Security (JWT, RBAC), Spring Data JPA, Hibernate',
-      Database: 'PostgreSQL 15, Flyway, Redis (ElastiCache)',
-      Infrastructure:
-        'AWS Fargate, Lambda (Python batch jobs), RDS, S3, CloudWatch, GitHub Actions',
-      Patterns: 'Repository, Event-driven (Spring Events), Outbox Pattern',
-    },
-    teamSize: 7,
-  },
-  {
-    title: 'KJ System (Kojiro 803)',
-    role: 'Back-end Developer',
-    company: 'HBLab JSC',
-    period: '07/2025 -- 11/2025',
-    description: [
-      'An educational platform for Japanese users preparing for driving license theory exams.',
-      'Multi-platform system with 5,000+ app downloads (Admin Web, User Web (Next.js), and Mobile App (React Native)).',
-      'Supports 15+ modules such as practice exercises, mock exams, proficiency tests, video tutorials (up to 5GB), and a community Q&A board.',
-    ],
-    responsibilities: [
-      'Developed REST APIs for driving theory exercises (Spring Boot) and digital content management (ExpressJS).',
-      'Built Media Service endpoints to manage video metadata and learning content for Mobile clients.',
-      'Built Notification Service APIs with RabbitMQ for study reminders and exam alerts.',
-      'Implemented Kafka producers and consumers for events: user registration and exam completion.',
-      'Added Redis caching for frequently accessed categories and questions to reduce database load.',
-    ],
-    techStack: {
-      Architecture:
-        'Microservices, Event-Driven, Clean Architecture, BFF pattern, CQRS',
-      Backend: 'Java 17 (Spring Boot 3.2), Node.js (ExpressJS)',
-      Database: 'PostgreSQL, MongoDB, Redis',
-      Messaging: 'Apache Kafka, RabbitMQ',
-      DevOps: 'Docker, Kubernetes, GitHub Actions, GCP',
+      Tech: 'Next.js 16, React 19, TypeScript, Zustand, TanStack Query, React Hook Form, Zod, Tailwind CSS v4, shadcn/ui, Axios, Atomic Design, Claude',
     },
     teamSize: 9,
   },
   {
-    title: 'BBUS (Bus Management System)',
-    role: 'Back-end & Front-end Developer',
-    company: 'FPT University',
-    period: '12/2024 -- 05/2025',
+    title: 'HQ-Order',
+    role: 'Frontend Developer',
+    company: 'HBLab JSC',
+    period: '10/2025 -- 03/2026',
     description: [
-      'School bus management platform for real-time tracking, student safety monitoring, and parent-driver communication.',
-      'Multi-platform system with Web Admin Portal (React), Mobile App (Flutter for parents/drivers), and Backend API (Spring Boot).',
-      'Real-time GPS tracking, attendance management, and push notifications.',
+      'Renewal of back-office order tools for a Japanese retail chain, covering spreadsheet-style order entry, matrix conversion, Excel/CSV import-export, history, and pre-vendor approval.',
+      "Rebuilt on the client's Shinise architecture (gRPC, GraphQL).",
     ],
     responsibilities: [
-      'Backend Development (Partial): Developed REST APIs for Student Management, Attendance Tracking, and Event Reporting modules.',
-      'Built attendance check-in/check-out APIs with checkpoint tracking and real-time updates via WebSocket.',
-      'Implemented event reporting services with severity levels and lifecycle status tracking.',
-      'Integrated AWS S3 for file storage and Firebase Cloud Messaging for safety notifications.',
-      'Worked on real-time bus location updates using MQTT and pushed them to WebSocket clients.',
-      'Frontend Development (Full Admin Web): Built the entire Admin Web Portal from scratch, using React 19 and TypeScript, featuring 14 modules and 45+ type-safe routes.',
-      'Implemented real-time dashboards with Google Maps/Leaflet integration and state management using Zustand and TanStack Query.',
+      'Rebuilt 2 legacy jQuery/Handsontable tools (7,800+ LOC) on Angular 17 standalone and Signals; reached parity in sprint 1, then shipped new features per Jira backlog.',
+      'Built a typed HttpClient and AuthInterceptor with OAuth/OIDC and 401-retry refresh-token flow, removing the legacy redirect-to-login UX cliff on token expiry.',
+      'Centralized 40+ Reactive-Form validators (JAN, quantity, delivery date, lot/case) in a shared lib; retained Handsontable to preserve back-office keyboard workflow.',
+      'Integrated 14+ REST endpoints plus SheetJS-based Excel/CSV import-export with unified error mapping.',
     ],
     techStack: {
-      Architecture:
-        'Monolithic Backend, Component-Driven Frontend, Clean Architecture Mobile',
-      Backend:
-        'Java 17, Spring Boot 3.3.5, Spring Security (JWT, RBAC), Spring Data JPA, Hibernate, WebSocket',
-      Frontend:
-        'React 19, TypeScript 5.7, Vite 6, TanStack Router/Query, Zustand, Radix UI, Tailwind CSS',
-      Database: 'PostgreSQL 15',
-      'Real-time': 'WebSocket, MQTT, Firebase Cloud Messaging',
-      Cloud: 'AWS S3 (file storage), SendGrid (email), Firebase (FCM)',
+      Tech: 'Angular 20, TypeScript, RxJS, Signals, Reactive Forms, PrimeNG, Handsontable, SheetJS, OAuth/OIDC, Docker, Cloud Run, GitHub, Jira',
     },
-    href: 'https://j2c.cc/bbus-capstone',
-    isCapstone: true,
+    teamSize: 11,
   },
   {
-    title: 'DeutschNerd',
-    role: 'Front-end & Back-end',
-    company: 'FPT University',
-    period: '08/2024 -- 12/2024',
+    title: 'KJ Phase 2',
+    role: 'Frontend Developer',
+    company: 'HBLab JSC',
+    period: '07/2025 -- 11/2025',
     description: [
-      'An online platform that helps users practice German through exercises and vocabulary learning via flashcards.',
-      'Includes dashboards for roles such as admin, teacher, and supporter.',
+      'Added a Proficiency Test module to an existing educational platform for Japanese cargo-transport operations certification.',
+      'Admin web for managing tests, questions and test users; user web for taking the test, viewing results and explanations.',
+    ],
+    responsibilities: [
+      'Shipped 15 admin + 6 user screens (~ 43 REST endpoints) for a new Proficiency Test module on an existing Next.js educational platform.',
+      'Built the exam-taking flow with timer, save-and-resume, and a polling guard that detects admin-edited-mid-exam via HTTP 409 and safely kicks the user instead of submitting stale answers.',
+      'Implemented Excel bulk-question upload with preview-before-commit and multi-mode question forms (single / multi sub-question with up to 10 choices), backed by AntD validators with cross-field re-validation.',
+      'Designed the result, history and explanation screens with per-category pass/fail breakdown driven by require_correct_amount, and handled the 35-case user x test active-period matrix gating the start screen per the basic design document.',
     ],
     techStack: {
-      Frontend:
-        'ReactJS (v18-ts), Styled Components, Ant Design, Redux Toolkit',
-      Backend: 'ExpressJS v4',
+      Tech: 'Next.js 13, React 18, TypeScript, Redux Toolkit, Redux Saga, Ant Design, Tailwind CSS, next-translate, axios, moment-timezone, Docker',
     },
-    href: 'https://j2c.cc/RDS_DeutschNerd',
-    teamSize: 5,
+    teamSize: 9,
   },
   {
-    title: 'HolaWear Shop',
-    role: 'Front-end & Back-end - Team Lead',
-    company: 'FPT University',
-    period: '05/2024 -- 07/2024',
+    title: 'IPCC 2.0',
+    role: 'Frontend Developer',
+    company: 'Fint',
+    period: '10/2024 -- 12/2024',
     description: [
-      'A webapp that allows users to buy clothes with full function of admin panel.',
-      'Managed team tasks and oversaw the full development lifecycle.',
+      'A telecommunications contact center platform for Viettel, integrating SMS, Email, and Chat for customer support services.',
+    ],
+    responsibilities: [
+      'Implemented SMS and Email campaign management screens (list, create/edit form, recipient selection) based on Figma designs.',
+      'Integrated REST APIs via Angular HttpClient and RxJS to display campaign status, delivery progress, and message history in tables and detail views.',
+      'Built Reactive Forms validation, filter, search and pagination for campaign and recipient lists using ng-zorro-antd components.',
     ],
     techStack: {
-      Frontend: 'ReactJS (v18-js), Vite, Shadcn UI, Redux Toolkit',
-      Backend: 'ExpressJS v4',
-      Database: 'MongoDB',
+      Tech: 'Angular 17, TypeScript, RxJS, REST API, ng-zorro-antd',
     },
-    href: 'https://github.com/dnthchung/HolaWear',
-    teamSize: 5,
+    teamSize: 30,
   },
   {
-    title: 'Insurance Manage System',
-    role: 'Full Stack Developer',
-    company: 'FPT University',
-    period: '09/2023 -- 12/2023',
+    title: 'Smart Motor',
+    role: 'Frontend Developer',
+    company: 'Fint',
+    period: '06/2024 -- 11/2024',
     description: [
-      'A web-based platform for managing insurance contracts.',
-      'Features user registration and role-specific dashboards for sales representatives and administrators.',
+      "A smart vehicle tracking and management service utilizing Viettel's mobile network and GPS for real-time positioning, trip history, and remote anti-theft protection.",
+    ],
+    responsibilities: [
+      'Developed the SIM product management screens (list, activate/suspend, bulk CSV upload) for telecom subscriptions linked to IoT vehicle tracking devices.',
+      'Built vehicle operation flows including ownership transfer, remote engine lock/unlock, and async operation status tracking with WebSocket-driven UI updates.',
+      'Built reusable data-table, form, and validation layers (filter, sort, paginate) for complex fleet management screens.',
     ],
     techStack: {
-      Backend: 'Java JDBC, Servlet, Tomcat 10',
-      Frontend: 'JSP, Bootstrap',
-      Database: 'SQL Server',
+      Tech: 'React 18, TypeScript, Redux Toolkit, React Query, REST API, WebSocket, Ant Design',
     },
-    href: 'https://j2c.cc/Group5-InsuranceManageSystem',
-    teamSize: 5,
+    teamSize: 10,
+  },
+  {
+    title: 'Quality Assessment System',
+    role: 'Backend & Frontend',
+    company: 'Fint',
+    period: '01/2025 -- 04/2025',
+    description: [
+      'An internal quality control platform for insurance companies to monitor claim processing standards and mitigate operational risks.',
+    ],
+    responsibilities: [
+      'Maintained legacy backend modules, fixed production issues, and updated business logic for insurance claim validation based on customer change requests.',
+      'Developed and customized interactive data visualizations using Chart.js, tailoring charts and metrics to meet specific stakeholder requirements.',
+      'Collaborated with the QA team to implement new business rules for fraud detection and automated performance reporting in PDF/Excel formats.',
+    ],
+    techStack: {
+      Tech: 'Java 11, Spring Boot, MySQL, AngularJS, Chart.js, RESTful API',
+    },
+    teamSize: 15,
   },
 ];
 

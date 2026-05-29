@@ -1,0 +1,8 @@
+{
+  "unwantedRecommendations": [
+    "james-yu.latex-workshop",
+    "mathematic.vscode-latex",
+    "valentjn.vscode-ltex",
+    "efoerster.texlab"
+  ]
+}
