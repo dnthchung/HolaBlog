@@ -266,7 +266,7 @@ export default function MemoriesPage() {
           Memories
         </h1>
         <p className="text-sm text-gray-500 dark:text-gray-400">
-          Captured moments from my work journey and daily life.
+          Captured moments from my work journey.
         </p>
       </div>
 
@@ -277,11 +277,10 @@ export default function MemoriesPage() {
             <button
               key={tag}
               onClick={() => setFilter(tag)}
-              className={`rounded-full px-3 py-1 text-sm font-medium transition-colors ${
-                filter === tag
+              className={`rounded-full px-3 py-1 text-sm font-medium transition-colors ${filter === tag
                   ? 'bg-primary-500 text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
-              }`}
+                }`}
             >
               {tag === 'all' ? 'All' : tag}
             </button>
