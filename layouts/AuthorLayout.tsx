@@ -38,6 +38,8 @@ export default function AuthorLayout({ children, content }: Props) {
     name,
     avatar,
     occupation,
+    level,
+    yoe,
     company,
     email,
     phone,
@@ -50,6 +52,8 @@ export default function AuthorLayout({ children, content }: Props) {
   } = content as Omit<Authors, '_id' | '_raw' | 'body'> & {
     education?: Education[];
     career?: Career[];
+    level?: string;
+    yoe?: string;
     phone?: string;
     location?: string;
   };
@@ -84,6 +88,20 @@ export default function AuthorLayout({ children, content }: Props) {
               <p className="text-lg text-gray-500 dark:text-gray-400">
                 {occupation}
               </p>
+              {(level || yoe) && (
+                <div className="mt-3 flex flex-wrap justify-center gap-2 lg:justify-start">
+                  {level && (
+                    <span className="rounded-full border border-gray-200 bg-gray-50 px-2.5 py-1 text-xs font-medium text-gray-700 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300">
+                      {level}
+                    </span>
+                  )}
+                  {yoe && (
+                    <span className="rounded-full border border-gray-200 bg-gray-50 px-2.5 py-1 text-xs font-medium text-gray-700 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300">
+                      {yoe}
+                    </span>
+                  )}
+                </div>
+              )}
 
               <div className="mt-4 flex flex-col gap-2 border-t border-gray-100 pt-4 dark:border-gray-800">
                 {/* Company */}

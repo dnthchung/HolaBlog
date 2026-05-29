@@ -77,13 +77,16 @@ export default function Home({ posts }) {
                     )}
 
                     {/* Footer link */}
-                    <div className="mt-3 flex items-center text-xs font-medium">
+                    <div className="mt-4">
                       <Link
                         href={`/blog/${slug}`}
-                        className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+                        className="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 inline-flex items-center gap-1 text-sm font-medium transition-all duration-200 hover:gap-2"
                         aria-label={`Read more: "${title}"`}
                       >
-                        Read more &rarr;
+                        Read more
+                        <span className="transition-transform duration-200 group-hover:translate-x-1">
+                          →
+                        </span>
                       </Link>
                     </div>
                   </article>
