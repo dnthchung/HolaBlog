@@ -1,0 +1,219 @@
+% !TEX root = main.tex
+\documentclass[]{style}
+\usepackage{enumitem}
+\fullname{Doan Thanh Chung}
+\jobtitle{Fullstack Developer (Junior)}
+
+\newcommand{\bolddate}[1]{\textbf{#1}}
+
+\begin{document}
+
+\resumeheader
+{Cau Giay, Hanoi} % Address (để trống để ẩn)
+{0949.602.355}
+{chungdt03.work@gmail.com}
+{dnthchung}
+{}
+{https://www.linkedin.com/in/chungdt03/} % LinkedIn
+{} % Facebook
+{06-2003}
+
+% =========Work Experience ============ 
+\begin{section}{Work Experience}
+ \begin{subsectionnobulletnolist}
+  {HBLab JSC - Full time}
+  {Fullstack Developer}{\bolddate{06/2025 -- Now}}{219 Trung Kinh}
+ \end{subsectionnobulletnolist}
+
+  \begin{subsectionnobulletnolist}
+  {Fint JSC- Full time}
+  {Frontend Developer}{\bolddate{04/2024 -- 12/2024}}{28 Thanh Thai}
+  \end{subsectionnobulletnolist}
+
+%   \begin{subsectionnobulletnolist}
+%   {FPT Software - Full time}
+%   {Internship}{\bolddate{12/2023 -- 04/2024}}{Fville2, Hoa Lac}
+%  \end{subsectionnobulletnolist}
+\end{section}
+
+% =========Technical Skills ============
+\sectiontable{Technical Skills}{
+  \entry{Framework}{NestJS, Express.js, ReactJS, Next.js}
+  \entry{ORM}{TypeORM, Prisma}
+  % \entry{API Architectural}{Restful API}
+  \entry{Messaging}{RabbitMQ, BullMQ}
+  \entry{Routing}{TanStack Router, Redux Toolkit}
+  % \entry{Front-end}{ReactJS, Next.js}
+  % \entry{Styling}{Bootstrap, TailwindCSS}
+  \entry{DevOps \& Cloud}{Docker, Google Cloud Platform}
+  \entry{Database}{PostgreSQL, MongoDB, CacheDB (Redis)}
+  % \entry{Test \& Code Quality}{Jest, SonarQube, ESLint, Prettier}
+}
+
+  % \entry{Back-end}{NestJS, Express.js}
+  % \entry{ORM}{TypeORM, Prisma}
+  % \entry{API Architectural}{Restful API, GraphQL}
+  % \entry{Messaging}{RabbitMQ}
+  % \entry{Front-end}{ReactJS, Next.js}
+  % \entry{Routing}{TanStack Router, Redux Toolkit}
+  % \entry{Styling}{Bootstrap, TailwindCSS}
+  % \entry{DevOps \& Cloud}{Docker, Google Cloud Platform}
+  % \entry{Database}{PostgreSQL, MongoDB, CacheDB (Redis)}
+  % \entry{Test \& Code Quality}{Jest, SonarQube, ESLint, Prettier}
+
+% + Language: Java
+% + Framework: Spring Boot, Spring cloud, Spring MVC, Spring security, OAuth2 keycloak, Spring Batch.
+% + System Architectural: Experience with Monolithic, Microservice, Event-driven, CQRS, Orchestration.
+% + API Architectural: Restful API, GraphQL, WebSocket
+% + Experience in handling distributed transaction: Saga pattern
+% + Message broker: Kafka, SQS
+% + ORM framework: JPA, Hibernate
+% + DevOps tools: Docker, AWS, Jenkins, CI/CD (Github Action, AWS Code Build + Code Pipeline), Openshiit
+% + Code quality: JUnit, Mockito, SonarQube
+% + SQL (MySQL, Oracle), NoSQL (MongoDB, ElasticSearch), CacheDB (Redis)
+% + HTML, CSS, JavaScript, Bootstrap
+% + Framework: ReactJS, React Hook, VueJS
+% + English: Fluent
+
+% =========Projects ============ 
+\begin{section}{Projects}
+
+
+% ==== PJ: SIDECAR DATAOPS PLATFORM ====
+\vspace{1em}
+\begin{projectsubsection}{Sidecar DataOps Platform}{Backend Developer (Team size: 7)}{\bolddate{HBLab JSC}}{}
+\projectdescription{Consolidated DataOps platform for lean data teams, providing data quality monitoring, metadata cataloging, data lineage tracking, governance, and pipeline observability across enterprise data warehouses.}
+\projecttech{NestJS, BullMQ, Redis, PostgreSQL, TypeORM, REST API, Webhook, Docker}
+\begin{itemize}
+  \item Built RESTful APIs with NestJS for managing data sources, metadata catalogs, data quality rules, pipeline executions, and observability metrics.
+  \item Developed asynchronous task pipelines using BullMQ and Redis to process data quality checks, catalog refreshes, and lineage updates.
+  \item Implemented scheduled background jobs with distributed locking and idempotency mechanisms to prevent duplicate pipeline executions.
+  \item Integrated webhook-driven workflows with Jira and Backlog to auto trigger pipeline jobs from ticket and message events.
+\end{itemize}
+\end{projectsubsection}
+
+% ==== PJ A: PSMS ====
+\begin{projectsubsection}{PSMS}{Backend Developer (Team size: 9)}{\bolddate{HBLab JSC}}{}
+\projectdescription{Warehouse outbound management system for marketing material distribution — picking, packing, scan-based verification, shipment completion, labeling, and Excel/FTP integration.}
+\projecttech{NestJS, TypeORM, Better Auth, PostgreSQL, Redis, GCP, GitLab CI/CD, Docker, SonarQube, Sentry}
+\begin{itemize}[leftmargin=1.1em, itemsep=0pt, parsep=0pt]
+  \item Built REST APIs for Supplies Master and Stock Adjustment with transaction management and Redis caching.
+  \item Developed inventory configuration features for order thresholds, schedules, and store groups.
+  \item Developed order calculation logic based on business requirements and Detail Design documents.
+  \item Used Claude Code to support Basic Design, Detail Design, and code generation.
+\end{itemize}
+\end{projectsubsection}
+
+% ==== PJ C: KJ Phase 2 ====
+% \newpage
+% \begin{projectsubsection}{Kojiro System}{Fullstack Developer (Team size: 9)}{\bolddate{HBLab JSC}}{}
+% \projectdescription{Added a Proficiency Test module and digital content management module to an existing educational platform for Japanese cargo-transport operations
+% certification. Admin web for managing tests, questions and test users; user web for taking the test, viewing
+% results and explanations.}
+% \projecttech{Microservices, NestJS, TypeORM, PostgreSQL, Redis, RabbitMQ, Axiom/Sentry Docker, NextJs 13, Redux Toolkit, Redux Saga, Ant Design}
+% \begin{itemize}
+%   % BE :
+%   \item Developed REST APIs for driving theory exercises and digital content management
+%   \item Built Media Service and Notification Service APIs for video content, study reminders, and exam alerts.
+%   \item Implemented RabbitMQ-based asynchronous event handling and Redis caching for frequently accessed categories and questions.
+%   % FE :
+%   \item Built user web interfaces for taking proficiency tests, viewing results, and accessing digital content with Next.js and Ant Design.
+%   \item Implemented Redux Toolkit and Redux Saga for state management and side effects in the user web application.
+%   \item Used Axiom and Sentry for monitoring and logging application performance and errors in both backend and frontend services.
+%   \item Shipped 15 admin + 6 user screens for a new Proficiency Test module on an existing Next13 educational platform.
+%   \item Built the exam flow with timer, save/resume, and HTTP 409 conflict handling for mid-exam updates.
+%   \item Implemented Excel bulk-question upload with preview, multi-mode question forms, and AntD cross-field validation.
+%   \item Developed result, history, and explanation screens with category-based pass/fail logic and start-screen eligibility checks.
+% \end{itemize}
+% \end{projectsubsection}
+
+% ==== PJ C: KJ Phase 2 ====
+\newpage
+\begin{projectsubsection}{Kojiro System}{Fullstack Developer (Team size: 9)}{\bolddate{HBLab JSC}}{}
+\projectdescription{Added a Proficiency Test module and digital content management to an existing educational platform for Japanese cargo-transport certification. Admin web for managing tests, questions and users; user web for taking tests, viewing results and explanations.}
+\projecttech{Microservices, NestJS, TypeORM, PostgreSQL, Redis, RabbitMQ, Axiom/Sentry, Docker, Next.js 13, Redux Toolkit, Redux Saga, Ant Design}
+\begin{itemize}
+  \item Built REST APIs for driving-theory exercises, plus Media and Notification services for video content, study reminders, and exam alerts.
+  \item Implemented RabbitMQ async event handling and Redis caching for frequently accessed categories and questions.
+  \item Shipped admin \& user screens, including exam flow with timer, save/resume, and conflict handling for mid-exam updates.
+  \item Built Excel bulk-question upload with preview, multi-mode question forms, and AntD cross-field validation.
+  \item Developed result, history, and explanation screens with category-based pass/fail logic and start-screen eligibility checks.
+  \item Set up Axiom and Sentry for cross-stack performance monitoring and error tracking.
+\end{itemize}
+\end{projectsubsection}
+
+%  ==================================================================================================================
+
+% ==== PJ: Attendance & Payroll Management System ====
+\begin{projectsubsection}{Attendance \& Payroll Management System}{Frontend Developer (Team size: 6)}{\bolddate{Fint}}{}
+\projectdescription{A multi-role HRM web application for managing employees, work schedules, attendance records, payroll, organizational structures, and branch memberships.}
+\projecttech{React 18, Vite, React Router 7, TanStack Query, Zustand, RHF, Zod, Axios, Tailwind, i18next, Atomic design}
+\begin{itemize}
+  \item Developed employee, work schedule, attendance, and payroll management features for Admin, HR, and Employee portals.
+  \item Implemented management screens with reusable \& custom components using Tailwind CSS \& Atomic Design.
+  \item Integrated REST APIs with TanStack Query and Axios, handling data fetching, mutations, states, and cache invalidation.
+  \item Implemented CRUD forms with React Hook Form and Zod for employee, attendance, and payroll workflows.
+\end{itemize}
+\end{projectsubsection}
+ 
+%  ==================================================================================================================
+
+% ==== PJ D: IPCC 2.0 ====
+\begin{projectsubsection}{IPCC 2.0}{Frontend Developer (Team size: 15)}{\bolddate{Fint}}{}
+\projectdescription{A telecommunications contact center platform, integrating SMS, Email, and Chat for customer support services.}
+\projecttech{Angular 20, TypeScript, RxJS, Signals, Reactive Forms, PrimeNG, Handsontable, SheetJS, OAuth/OIDC}
+% \vspace{0.05em}
+\begin{itemize}
+  \item Built SMS/Email campaign management screens (list, create/edit form, recipient selection).
+  \item Integrated REST APIs via HttpClient \& RxJS for campaign status, delivery progress, message history.
+  \item Implemented Reactive Forms validation, filter, search, pagination with ng-zorro-antd.
+\end{itemize}
+\end{projectsubsection}
+
+%  ==================================================================================================================
+
+% ==== PJ E: Smart Motor ====
+\begin{projectsubsection}{Smart Motors}{Frontend Developer (Team size: 10)}{\bolddate{Fint}}{}
+\projectdescription{A smart vehicle tracking and management service utilizing Viettel's mobile network and GPS for real-time positioning, trip history, and remote anti-theft protection.}
+% \vspace{0.05em}
+\projecttech{React 18, TypeScript, Redux Toolkit, React Query, REST API, WebSocket, Ant Design}
+\begin{itemize}
+  \item Built SIM product management screens for telecom subscriptions linked to IoT tracking devices.
+  \item Developed vehicle flows: ownership transfer, remote engine lock/unlock, WebSocket status tracking.
+  \item Built reusable data-table, form \& validation layers (filter, sort, paginate) for fleet screens.
+\end{itemize}
+\end{projectsubsection}
+
+%  ==================================================================================================================
+
+% ==== PJ F: Quality Assessment System ====
+% \vspace{0.5em}
+% \begin{projectsubsection}{Quality Assessment System}{Frontend Developer (Team size: 15)}{\bolddate{Fint}}{}
+% \projectdescription{An internal quality control platform to monitor claim processing standards and mitigate operational risks.}
+% \projecttech{Vite, React 18, Chart.js, RESTful API}
+% \begin{itemize}[leftmargin=1.1em, itemsep=0pt, parsep=0pt]
+%   \item Maintained legacy UI modules and resolved production bugs (broken filters, stale cache, form-state errors), refining claim-validation forms and flows.
+%   \item Developed interactive data visualizations with \textbf{Chart.js} tailored to stakeholder metrics.
+%   \item Built reporting UI to import/export PDF/Excel performance reports.
+% \end{itemize}
+% \end{projectsubsection}
+
+% ========================================================= END ====================================================================
+
+\end{section}
+
+% =========Education ============ 
+\begin{section}{Education}
+ \begin{educationsubsection}
+   {FPT University (Hoa Lac Campus)}
+   {
+     Bachelor of Software Engineering \\
+     • GPA: 3.4/4.0 \hspace{3cm} • TOEIC 750 \\
+     • 100\% Scholarship \hspace{2cm} • JLPT N4 (i) \\
+   }
+   {\bolddate{09/2021 -- 08/2025}}{}
+ \end{educationsubsection}
+\end{section}
+
+\end{document}
+

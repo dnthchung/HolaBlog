@@ -28,64 +28,82 @@ interface Project {
 
 const projectsData: Project[] = [
   {
+    title: 'Sidecar DataOps Platform',
+    role: 'Backend Developer',
+    company: 'HBLab JSC',
+    period: '06/2025 -- now',
+    description: [
+      'Consolidated DataOps platform for lean data teams, providing data quality monitoring, metadata cataloging, data lineage tracking, governance, and pipeline observability across enterprise data warehouses.',
+    ],
+    responsibilities: [
+      'Built RESTful APIs with NestJS for managing data sources, metadata catalogs, data quality rules, pipeline executions, and observability metrics.',
+      'Developed asynchronous task pipelines using BullMQ and Redis to process data quality checks, catalog refreshes, and lineage updates.',
+      'Implemented scheduled background jobs with distributed locking and idempotency mechanisms to prevent duplicate pipeline executions.',
+      'Integrated webhook-driven workflows with Jira and Backlog to auto trigger pipeline jobs from ticket and message events.',
+    ],
+    techStack: {
+      Tech: 'NestJS, BullMQ, Redis, PostgreSQL, TypeORM, REST API, Webhook, Docker',
+    },
+    teamSize: 7,
+  },
+  {
     title: 'PSMS',
-    role: 'Frontend Developer',
+    role: 'Backend Developer',
     company: 'HBLab JSC',
     period: '02/2026 -- now',
     description: [
-      'Warehouse outbound management system for marketing material distribution, including picking, packing, scan-based verification, shipment completion, labeling, and Excel/FTP integration.',
-      'Built for a Japanese client.',
+      'Warehouse outbound management system for marketing material distribution — picking, packing, scan-based verification, shipment completion, labeling, and Excel/FTP integration.',
     ],
     responsibilities: [
-      "Built all 10 master-data CRUD modules (areas, centers, clients, materials, operators, patterns, stores, users, roles, deliveries) on Next.js 16 App Router using the team's shared Atomic Design + shadcn/ui component library.",
-      'Authored Zod schemas and React Hook Form forms for each master entity, plus shared filter, sort, pagination, and URL-query-state patterns across list screens.',
-      'Contributed UI components and fixes to the Plan import module (Excel preview with center x material matrix) owned by senior teammates.',
-      "Used Claude as an AI pair-programming agent for Figma to React component generation, code review and refactor suggestions, and cross-checking implementations against BA's Basic Design documents.",
+      'Built REST APIs for Supplies Master and Stock Adjustment with transaction management and Redis caching.',
+      'Developed inventory configuration features for order thresholds, schedules, and store groups.',
+      'Developed order calculation logic based on business requirements and Detail Design documents.',
+      'Used Claude Code to support Basic Design, Detail Design, and code generation.',
     ],
     techStack: {
-      Tech: 'Next.js 16, React 19, TypeScript, Zustand, TanStack Query, React Hook Form, Zod, Tailwind CSS v4, shadcn/ui, Axios, Atomic Design, Claude',
+      Tech: 'NestJS, TypeORM, Better Auth, PostgreSQL, Redis, GCP, GitLab CI/CD, Docker, SonarQube, Sentry',
     },
     teamSize: 9,
   },
   {
-    title: 'HQ-Order',
-    role: 'Frontend Developer',
-    company: 'HBLab JSC',
-    period: '10/2025 -- 03/2026',
-    description: [
-      'Renewal of back-office order tools for a Japanese retail chain, covering spreadsheet-style order entry, matrix conversion, Excel/CSV import-export, history, and pre-vendor approval.',
-      "Rebuilt on the client's Shinise architecture (gRPC, GraphQL).",
-    ],
-    responsibilities: [
-      'Rebuilt 2 legacy jQuery/Handsontable tools (7,800+ LOC) on Angular 17 standalone and Signals; reached parity in sprint 1, then shipped new features per Jira backlog.',
-      'Built a typed HttpClient and AuthInterceptor with OAuth/OIDC and 401-retry refresh-token flow, removing the legacy redirect-to-login UX cliff on token expiry.',
-      'Centralized 40+ Reactive-Form validators (JAN, quantity, delivery date, lot/case) in a shared lib; retained Handsontable to preserve back-office keyboard workflow.',
-      'Integrated 14+ REST endpoints plus SheetJS-based Excel/CSV import-export with unified error mapping.',
-    ],
-    techStack: {
-      Tech: 'Angular 20, TypeScript, RxJS, Signals, Reactive Forms, PrimeNG, Handsontable, SheetJS, OAuth/OIDC, Docker, Cloud Run, GitHub, Jira',
-    },
-    teamSize: 11,
-  },
-  {
-    title: 'KJ Phase 2',
-    role: 'Frontend Developer',
+    title: 'Kojiro System',
+    role: 'Fullstack Developer',
     company: 'HBLab JSC',
     period: '07/2025 -- 11/2025',
     description: [
-      'Added a Proficiency Test module to an existing educational platform for Japanese cargo-transport operations certification.',
-      'Admin web for managing tests, questions and test users; user web for taking the test, viewing results and explanations.',
+      'Added a Proficiency Test module and digital content management to an existing educational platform for Japanese cargo-transport certification. Admin web for managing tests, questions and users; user web for taking tests, viewing results and explanations.',
     ],
     responsibilities: [
-      'Shipped 15 admin + 6 user screens (~ 43 REST endpoints) for a new Proficiency Test module on an existing Next.js educational platform.',
-      'Built the exam-taking flow with timer, save-and-resume, and a polling guard that detects admin-edited-mid-exam via HTTP 409 and safely kicks the user instead of submitting stale answers.',
-      'Implemented Excel bulk-question upload with preview-before-commit and multi-mode question forms (single / multi sub-question with up to 10 choices), backed by AntD validators with cross-field re-validation.',
-      'Designed the result, history and explanation screens with per-category pass/fail breakdown driven by require_correct_amount, and handled the 35-case user x test active-period matrix gating the start screen per the basic design document.',
+      'Built REST APIs for driving-theory exercises, plus Media and Notification services for video content, study reminders, and exam alerts.',
+      'Implemented RabbitMQ async event handling and Redis caching for frequently accessed categories and questions.',
+      'Shipped admin & user screens, including exam flow with timer, save/resume, and conflict handling for mid-exam updates.',
+      'Built Excel bulk-question upload with preview, multi-mode question forms, and AntD cross-field validation.',
+      'Developed result, history, and explanation screens with category-based pass/fail logic and start-screen eligibility checks.',
+      'Set up Axiom and Sentry for cross-stack performance monitoring and error tracking.',
     ],
     techStack: {
-      Tech: 'Next.js 13, React 18, TypeScript, Redux Toolkit, Redux Saga, Ant Design, Tailwind CSS, next-translate, axios, moment-timezone, Docker',
+      Tech: 'Microservices, NestJS, TypeORM, PostgreSQL, Redis, RabbitMQ, Axiom/Sentry, Docker, Next.js 13, Redux Toolkit, Redux Saga, Ant Design',
     },
     teamSize: 9,
+  },
+  {
+    title: 'Attendance & Payroll Management System',
+    role: 'Frontend Developer',
+    company: 'Fint',
+    period: '04/2024 -- 08/2024',
+    description: [
+      'A multi-role HRM web application for managing employees, work schedules, attendance records, payroll, organizational structures, and branch memberships.',
+    ],
+    responsibilities: [
+      'Developed employee, work schedule, attendance, and payroll management features for Admin, HR, and Employee portals.',
+      'Implemented management screens with reusable & custom components using Tailwind CSS & Atomic Design.',
+      'Integrated REST APIs with TanStack Query and Axios, handling data fetching, mutations, states, and cache invalidation.',
+      'Implemented CRUD forms with React Hook Form and Zod for employee, attendance, and payroll workflows.',
+    ],
+    techStack: {
+      Tech: 'React 18, Vite, React Router 7, TanStack Query, Zustand, React Hook Form, Zod, Axios, Tailwind CSS, i18next, Atomic design',
+    },
+    teamSize: 6,
   },
   {
     title: 'IPCC 2.0',
@@ -93,20 +111,20 @@ const projectsData: Project[] = [
     company: 'Fint',
     period: '10/2024 -- 12/2024',
     description: [
-      'A telecommunications contact center platform for Viettel, integrating SMS, Email, and Chat for customer support services.',
+      'A telecommunications contact center platform, integrating SMS, Email, and Chat for customer support services.',
     ],
     responsibilities: [
-      'Implemented SMS and Email campaign management screens (list, create/edit form, recipient selection) based on Figma designs.',
-      'Integrated REST APIs via Angular HttpClient and RxJS to display campaign status, delivery progress, and message history in tables and detail views.',
-      'Built Reactive Forms validation, filter, search and pagination for campaign and recipient lists using ng-zorro-antd components.',
+      'Built SMS/Email campaign management screens (list, create/edit form, recipient selection).',
+      'Integrated REST APIs via HttpClient & RxJS for campaign status, delivery progress, message history.',
+      'Implemented Reactive Forms validation, filter, search, pagination with ng-zorro-antd.',
     ],
     techStack: {
-      Tech: 'Angular 17, TypeScript, RxJS, REST API, ng-zorro-antd',
+      Tech: 'Angular 20, TypeScript, RxJS, Signals, Reactive Forms, PrimeNG, Handsontable, SheetJS, OAuth/OIDC, ng-zorro-antd',
     },
-    teamSize: 30,
+    teamSize: 15,
   },
   {
-    title: 'Smart Motor',
+    title: 'Smart Motors',
     role: 'Frontend Developer',
     company: 'Fint',
     period: '06/2024 -- 11/2024',
@@ -114,32 +132,14 @@ const projectsData: Project[] = [
       "A smart vehicle tracking and management service utilizing Viettel's mobile network and GPS for real-time positioning, trip history, and remote anti-theft protection.",
     ],
     responsibilities: [
-      'Developed the SIM product management screens (list, activate/suspend, bulk CSV upload) for telecom subscriptions linked to IoT vehicle tracking devices.',
-      'Built vehicle operation flows including ownership transfer, remote engine lock/unlock, and async operation status tracking with WebSocket-driven UI updates.',
-      'Built reusable data-table, form, and validation layers (filter, sort, paginate) for complex fleet management screens.',
+      'Built SIM product management screens for telecom subscriptions linked to IoT tracking devices.',
+      'Developed vehicle flows: ownership transfer, remote engine lock/unlock, WebSocket status tracking.',
+      'Built reusable data-table, form & validation layers (filter, sort, paginate) for fleet screens.',
     ],
     techStack: {
       Tech: 'React 18, TypeScript, Redux Toolkit, React Query, REST API, WebSocket, Ant Design',
     },
     teamSize: 10,
-  },
-  {
-    title: 'Quality Assessment System',
-    role: 'Backend & Frontend',
-    company: 'Fint',
-    period: '01/2025 -- 04/2025',
-    description: [
-      'An internal quality control platform for insurance companies to monitor claim processing standards and mitigate operational risks.',
-    ],
-    responsibilities: [
-      'Maintained legacy backend modules, fixed production issues, and updated business logic for insurance claim validation based on customer change requests.',
-      'Developed and customized interactive data visualizations using Chart.js, tailoring charts and metrics to meet specific stakeholder requirements.',
-      'Collaborated with the QA team to implement new business rules for fraud detection and automated performance reporting in PDF/Excel formats.',
-    ],
-    techStack: {
-      Tech: 'Java 11, Spring Boot, MySQL, AngularJS, Chart.js, RESTful API',
-    },
-    teamSize: 15,
   },
 ];
 

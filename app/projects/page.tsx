@@ -25,22 +25,10 @@ export default function Projects() {
               <span className="group-hover:bg-primary-500 h-1.5 w-1.5 rounded-full bg-gray-400 transition-colors"></span>
             </span>
 
-            {/* Mốc thời gian nổi bật (GitHub Label Style) */}
-            <div className="mb-3 inline-flex items-center rounded-md border border-gray-200 bg-gray-50 px-2 py-0.5 font-mono text-xs font-bold tracking-tight text-gray-700 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300">
-              <svg
-                className="mr-1.5 h-3 w-3 text-gray-400"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                />
-              </svg>
-              {d.period}
+            {/* Mốc công ty nổi bật (GitHub Label Style) */}
+            <div className="mb-3 inline-flex items-center gap-1.5 rounded-md border border-gray-200 bg-gray-50 px-2 py-0.5 font-mono text-xs font-bold tracking-tight text-gray-700 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300">
+              <span className={`h-1.5 w-1.5 rounded-full ${getCompanyColor(d.company)}`} />
+              {d.company}
             </div>
 
             <div className="overflow-hidden rounded-lg border border-gray-200 bg-white transition-shadow hover:shadow-md dark:border-gray-800 dark:bg-gray-950">
@@ -60,17 +48,6 @@ export default function Projects() {
                         </span>
                       )}
                     </div>
-                  </div>
-
-                  {/* Company Info */}
-                  <div className="flex items-center gap-2 rounded-md border border-gray-200 bg-white px-2.5 py-1 dark:border-gray-800 dark:bg-gray-900">
-                    <div
-                      className={`h-2 w-2 animate-pulse rounded-full ${getCompanyColor(d.company)}`}
-                    />{' '}
-                    {/* Status dot */}
-                    <span className="text-xs font-bold text-gray-800 dark:text-gray-200">
-                      {d.company}
-                    </span>
                   </div>
                 </div>
               </div>
